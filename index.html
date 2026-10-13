@@ -2,24 +2,72 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <title>Wedding Invitation | Mohammed Saman & Huma</title>
   <meta name="description" content="You are cordially invited to celebrate the Nikah and Reception of Mohammed Saman & Huma on 23rd & 25th October 2026." />
+  <meta name="theme-color" content="#03140e" id="theme-color-meta" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
 
-  <!-- Google Fonts: Amiri (Arabic Calligraphy), Cormorant Garamond (Majestic Headings), Plus Jakarta Sans (Clean Modern Body), Cinzel Decorative (Monogram) -->
+  <!-- Preload hero floral asset for Rose Light theme -->
+  <link rel="preload" href="assets/flowers/peony_cluster_tl.webp" as="image" type="image/webp" />
+
+  <!-- Google Fonts: Amiri (Arabic), Cormorant Garamond & Cinzel (Royal Dark), Pinyon Script & Playfair Display & Jost (Rose Light) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Inline Script to Set Initial Theme Before Paint (Zero FOUC) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('wedding_theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Floating Ambient Particles Canvas -->
+  <!-- Floating Ambient Particles / Falling Petals Canvas -->
   <canvas id="particles-canvas" class="particles-bg"></canvas>
+
+  <!-- Theme Mode Toggle (Emerald Dark <-> Rose Light) -->
+  <aside class="theme-toggle-container" aria-label="Theme switcher">
+    <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Switch between Emerald Dark and Rose Light themes" aria-pressed="false" title="Toggle Theme">
+      <span class="toggle-mode-icon moon-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </span>
+      <span class="toggle-switch-track" aria-hidden="true">
+        <span class="toggle-switch-thumb"></span>
+      </span>
+      <span class="toggle-mode-icon sun-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </span>
+      <span class="toggle-theme-label" id="theme-label-text">Rose Light</span>
+    </button>
+  </aside>
 
 
 
@@ -91,11 +139,6 @@
           <!-- Open Button with Golden Glow Pulse -->
           <button id="open-invite-btn" class="open-card-button" aria-label="Tap to open the wedding invitation">
             <span class="btn-shine"></span>
-            <span class="btn-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-              </svg>
-            </span>
             <span class="btn-text">TAP TO OPEN INVITATION</span>
           </button>
 
@@ -135,6 +178,12 @@
         <div class="ornament-corner top-right"></div>
         <div class="ornament-corner bottom-left"></div>
         <div class="ornament-corner bottom-right"></div>
+
+        <!-- Floral Peony Clusters for Rose Light Theme (Hidden in Dark Theme) -->
+        <div class="arch-floral-decor" aria-hidden="true">
+          <img src="assets/flowers/peony_cluster_tl.webp" alt="" class="arch-peony peony-tl" width="160" height="160" loading="eager" />
+          <img src="assets/flowers/peony_cluster_br.webp" alt="" class="arch-peony peony-br" width="160" height="160" loading="lazy" />
+        </div>
 
         <div class="bismillah-block">
           <div class="bismillah-calligraphy-large" dir="rtl" lang="ar">
@@ -533,6 +582,6 @@
 
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2.2"></script>
 </body>
 </html>

@@ -1,11 +1,16 @@
 /* ==========================================================================
    WEDDING INVITATION MOTION CARD - MOHAMMED SAMAN & HUMA
-   Theme: Royal Islamic Emerald Velvet & Champagne Gold Leaf
-   Typography: Amiri (Arabic), Cormorant Garamond (Headings), Plus Jakarta Sans
+   Dual-Theme System:
+     1. Emerald Velvet & Champagne Gold (Dark - Default)
+     2. Rose Light & Hand-Finished Cream Paper (Light - Editorial Luxury)
    ========================================================================== */
 
-:root {
-  /* Color Palette */
+/* --------------------------------------------------------------------------
+   THEME TOKENS
+   -------------------------------------------------------------------------- */
+:root,
+[data-theme="dark"] {
+  /* Dark Theme Color Tokens (Preserved identically) */
   --bg-dark: #03140e;
   --emerald-deep: #051c14;
   --emerald-rich: #092c20;
@@ -40,6 +45,30 @@
   /* Transitions */
   --trans-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --trans-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --theme-trans: 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   ROSE LIGHT THEME TOKENS
+   Editorial Luxury: Warm Cream Paper, White Arch, Dusty-Rose & Chocolate Ink
+   -------------------------------------------------------------------------- */
+[data-theme="light"] {
+  --bg: #EFE9E1;                       /* warm cream paper */
+  --bg-pattern: #DDD0C3;               /* faint leaf line pattern at 35% */
+  --surface: #FFFFFF;                  /* arch and cards */
+  --ink: #6B4239;                      /* primary text, headings, chocolate brown */
+  --ink-soft: #8A6258;                 /* secondary text; passes WCAG AA */
+  --ink-dim: #9C786E;
+  --rose: #B9808A;                     /* flowers, ornaments, buttons */
+  --rose-light: #E3BEC3;               /* hover washes, subtle fills */
+  --plum: #4E2F34;                     /* leaf-dark accents, pressed states */
+  --line: rgba(107, 66, 57, 0.55);     /* hairline dividers and arch outline */
+  --shadow: 0 18px 40px -18px rgba(185, 128, 138, 0.35); /* rose-tinted, never black */
+
+  /* Font Overrides for Rose Light */
+  --font-names-script: 'Pinyon Script', 'Great Vibes', cursive;
+  --font-section-label: 'Playfair Display', Georgia, serif;
+  --font-body-jost: 'Jost', -apple-system, sans-serif;
 }
 
 /* Base Reset & Box Sizing */
@@ -55,6 +84,10 @@ html {
   background-color: var(--bg-dark);
 }
 
+[data-theme="light"] {
+  background-color: var(--bg);
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--bg-dark);
@@ -64,9 +97,30 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--theme-trans), color var(--theme-trans);
 }
 
-/* Background Canvas for Ambient Gold Particles */
+/* Paper Grain Texture (Very subtle SVG noise at 4% opacity in Rose Light) */
+[data-theme="light"] body {
+  background-color: var(--bg);
+  background-image: url('assets/bg-pattern.webp');
+  background-repeat: repeat;
+  background-size: 320px 320px;
+  color: var(--ink);
+  font-family: var(--font-body-jost);
+}
+
+[data-theme="light"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Background Canvas for Ambient Gold Particles / Falling Rose Petals */
 .particles-bg {
   position: fixed;
   top: 0;
@@ -77,7 +131,126 @@ body {
   z-index: 1;
 }
 
+/* ==========================================================================
+   THEME TOGGLE COMPONENT (SUN / MOON WITH SLIDING THUMB)
+   ========================================================================== */
+.theme-toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
 
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(6, 32, 22, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--gold-light);
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s var(--trans-smooth);
+}
+
+.theme-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.25);
+  border-color: var(--gold-primary);
+}
+
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--gold-primary);
+  outline-offset: 3px;
+}
+
+[data-theme="light"] .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(185, 128, 138, 0.5);
+  color: var(--ink);
+  box-shadow: 0 8px 24px -8px rgba(185, 128, 138, 0.35);
+}
+
+[data-theme="light"] .theme-toggle-btn:hover {
+  background: #ffffff;
+  border-color: var(--rose);
+  box-shadow: 0 10px 28px -6px rgba(185, 128, 138, 0.5);
+}
+
+[data-theme="light"] .theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--plum);
+  outline-offset: 3px;
+}
+
+.toggle-switch-track {
+  width: 32px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .toggle-switch-track {
+  background: rgba(185, 128, 138, 0.22);
+  border-color: var(--rose);
+}
+
+.toggle-switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  transition: transform 0.3s var(--trans-smooth), background-color 0.3s ease;
+}
+
+[data-theme="light"] .toggle-switch-thumb {
+  transform: translateX(14px);
+  background: var(--rose);
+}
+
+.toggle-mode-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+[data-theme="dark"] .moon-icon {
+  opacity: 1;
+  color: var(--gold-primary);
+}
+
+[data-theme="dark"] .sun-icon {
+  opacity: 0.4;
+}
+
+[data-theme="light"] .sun-icon {
+  opacity: 1;
+  color: var(--rose);
+}
+
+[data-theme="light"] .moon-icon {
+  opacity: 0.35;
+}
+
+.toggle-theme-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
 /* ==========================================================================
    STAGE 1: PALACE ARCH DOOR REVEAL
@@ -90,7 +263,11 @@ body {
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle at center, #072a1e 0%, #03140e 85%);
-  transition: opacity 1.2s var(--trans-smooth), visibility 1.2s;
+  transition: opacity 1.2s var(--trans-smooth), visibility 1.2s, background 0.45s ease;
+}
+
+[data-theme="light"] .door-stage {
+  background: radial-gradient(circle at center, #FDFBF8 0%, #EFE9E1 85%);
 }
 
 .door-stage.opened {
@@ -123,6 +300,13 @@ body {
   display: flex;
   overflow: visible;
   background: #020c08;
+  transition: border-color var(--theme-trans), background-color var(--theme-trans), box-shadow var(--theme-trans);
+}
+
+[data-theme="light"] .palace-arch-frame {
+  background: #E8E0D5;
+  border-color: rgba(185, 128, 138, 0.55);
+  box-shadow: 0 10px 40px rgba(107, 66, 57, 0.15), inset 0 0 30px rgba(185, 128, 138, 0.12);
 }
 
 /* Arched Door Leaves */
@@ -133,8 +317,13 @@ body {
   top: 0;
   background: var(--grad-door-wood);
   box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.9);
-  transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1), background var(--theme-trans), border-color var(--theme-trans);
   will-change: transform;
+}
+
+[data-theme="light"] .door-leaf {
+  background: linear-gradient(145deg, #FDFBF8 0%, #EFE8DF 100%);
+  box-shadow: inset 0 0 30px rgba(107, 66, 57, 0.1);
 }
 
 .door-left {
@@ -144,11 +333,19 @@ body {
   border-right: 1.5px solid rgba(212, 175, 55, 0.6);
 }
 
+[data-theme="light"] .door-left {
+  border-right-color: rgba(185, 128, 138, 0.6);
+}
+
 .door-right {
   right: 0;
   transform-origin: right center;
   border-radius: 0 240px 16px 0;
   border-left: 1.5px solid rgba(212, 175, 55, 0.6);
+}
+
+[data-theme="light"] .door-right {
+  border-left-color: rgba(185, 128, 138, 0.6);
 }
 
 /* Door Swing Open Animations */
@@ -168,6 +365,10 @@ body {
   overflow: hidden;
 }
 
+[data-theme="light"] .door-inner-panel {
+  border-color: rgba(185, 128, 138, 0.35);
+}
+
 /* Islamic Girih Arabesque Geometric Background for Doors */
 .door-girih-pattern {
   position: absolute;
@@ -177,6 +378,12 @@ body {
                     radial-gradient(#d4af37 1px, transparent 1px);
   background-size: 28px 28px;
   background-position: 0 0, 14px 14px;
+}
+
+[data-theme="light"] .door-girih-pattern {
+  opacity: 0.15;
+  background-image: radial-gradient(#B9808A 1px, transparent 1px),
+                    radial-gradient(#B9808A 1px, transparent 1px);
 }
 
 .door-girih-pattern::before {
@@ -189,6 +396,16 @@ body {
     transparent 15px,
     rgba(212, 175, 55, 0.05) 15px,
     rgba(212, 175, 55, 0.05) 30px
+  );
+}
+
+[data-theme="light"] .door-girih-pattern::before {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 15px,
+    rgba(185, 128, 138, 0.06) 15px,
+    rgba(185, 128, 138, 0.06) 30px
   );
 }
 
@@ -214,6 +431,11 @@ body {
   border: 3px solid var(--gold-primary);
   border-radius: 50%;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 240, 180, 0.4);
+}
+
+[data-theme="light"] .handle-ring {
+  border-color: var(--rose);
+  box-shadow: 0 3px 8px rgba(107, 66, 57, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 /* Hanging Lanterns */
@@ -248,6 +470,10 @@ body {
   background: linear-gradient(to bottom, #d4af37, #664d14);
 }
 
+[data-theme="light"] .lantern-chain {
+  background: linear-gradient(to bottom, #B9808A, #6B4239);
+}
+
 .lantern-body {
   width: 26px;
   height: 42px;
@@ -259,6 +485,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+[data-theme="light"] .lantern-body {
+  background: linear-gradient(135deg, #FBF8F5 0%, #EFE8DF 100%);
+  border-color: var(--rose);
+  box-shadow: 0 4px 15px rgba(185, 128, 138, 0.3);
 }
 
 .lantern-flame {
@@ -308,6 +540,11 @@ body {
   display: block;
 }
 
+[data-theme="light"] .seal-bismillah .arabic-calligraphy {
+  color: var(--ink);
+  text-shadow: none;
+}
+
 .seal-bismillah-trans {
   font-size: 0.82rem;
   color: var(--ivory-muted);
@@ -315,6 +552,11 @@ body {
   margin-top: 4px;
   font-family: var(--font-heading);
   font-style: italic;
+}
+
+[data-theme="light"] .seal-bismillah-trans {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
 }
 
 /* Monogram SVG Arch with Stroke Animation */
@@ -339,6 +581,11 @@ body {
   animation: drawStroke 2.2s ease-out forwards;
 }
 
+[data-theme="light"] .stroke-arch-outer {
+  fill: rgba(255, 255, 255, 0.7);
+  stroke: var(--rose);
+}
+
 .stroke-arch-inner {
   fill: none;
   stroke: var(--gold-light);
@@ -348,13 +595,25 @@ body {
   animation: drawStroke 2s ease-out 0.4s forwards;
 }
 
+[data-theme="light"] .stroke-arch-inner {
+  stroke: var(--plum);
+}
+
 .arch-jewel {
   fill: var(--gold-glow);
   box-shadow: 0 0 10px var(--gold-primary);
 }
 
+[data-theme="light"] .arch-jewel {
+  fill: var(--rose);
+}
+
 .arch-point {
   fill: var(--gold-primary);
+}
+
+[data-theme="light"] .arch-point {
+  fill: var(--rose);
 }
 
 @keyframes drawStroke {
@@ -383,11 +642,24 @@ body {
   line-height: 1;
 }
 
+[data-theme="light"] .initial-letter {
+  font-family: var(--font-names-script);
+  color: var(--ink);
+  font-size: 2.8rem;
+  font-weight: normal;
+  text-shadow: none;
+}
+
 .initial-amp {
   font-family: var(--font-heading);
   font-size: 1.4rem;
   color: var(--gold-muted);
   margin: 0 2px;
+}
+
+[data-theme="light"] .initial-amp {
+  color: var(--rose);
+  font-family: var(--font-section-label);
 }
 
 .seal-couple-names {
@@ -401,10 +673,20 @@ body {
   gap: 8px;
 }
 
+[data-theme="light"] .seal-couple-names {
+  font-family: var(--font-names-script);
+  font-size: 2.2rem;
+  color: var(--ink);
+}
+
 .seal-couple-names .and-symbol {
   color: var(--gold-primary);
   font-style: italic;
   font-size: 1.25rem;
+}
+
+[data-theme="light"] .seal-couple-names .and-symbol {
+  color: var(--rose);
 }
 
 /* Royal Tap-To-Open Button */
@@ -413,8 +695,9 @@ body {
   background: linear-gradient(135deg, #124b37 0%, #08291e 100%);
   border: 1.5px solid var(--gold-primary);
   color: var(--gold-light);
+  min-height: 52px;
   padding: 14px 28px;
-  border-radius: 50px;
+  border-radius: 999px;
   font-family: var(--font-body);
   font-size: 0.86rem;
   font-weight: 700;
@@ -429,12 +712,30 @@ body {
   transition: all 0.35s var(--trans-smooth);
 }
 
+[data-theme="light"] .open-card-button {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: #FFFFFF;
+  font-family: var(--font-body-jost);
+  box-shadow: 0 8px 24px -4px rgba(185, 128, 138, 0.5);
+}
+
 .open-card-button:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 
               0 0 35px rgba(212, 175, 55, 0.55);
   border-color: #fff;
   color: #fff;
+}
+
+[data-theme="light"] .open-card-button:hover {
+  background: var(--plum);
+  border-color: var(--plum);
+  color: #FFFFFF;
+}
+
+.open-card-button:active {
+  transform: scale(0.97);
 }
 
 .btn-shine {
@@ -466,6 +767,10 @@ body {
   letter-spacing: 0.04em;
 }
 
+[data-theme="light"] .door-hint {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
+}
 
 /* ==========================================================================
    STAGE 2: MAIN INVITATION CARD EXPERIENCE
@@ -491,6 +796,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 36px;
+  transition: max-width var(--theme-trans);
+}
+
+/* Centered 480px luxury stationery card in Rose Light */
+[data-theme="light"] .invitation-container {
+  max-width: 480px;
 }
 
 /* Reusable Section Card Styling */
@@ -505,9 +816,18 @@ body {
               0 0 1px rgba(212, 175, 55, 0.4);
   overflow: hidden;
   backdrop-filter: blur(8px);
+  transition: background var(--theme-trans), border-color var(--theme-trans), box-shadow var(--theme-trans);
 }
 
-/* Subtle Arabesque Pattern Overlay on Cards */
+[data-theme="light"] .section-card {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  backdrop-filter: none;
+}
+
+/* Subtle Arabesque Pattern Overlay on Cards (Dark Theme Only) */
 .section-card::before {
   content: '';
   position: absolute;
@@ -516,6 +836,10 @@ body {
   background-image: radial-gradient(var(--gold-primary) 1px, transparent 1px);
   background-size: 24px 24px;
   pointer-events: none;
+}
+
+[data-theme="light"] .section-card::before {
+  display: none;
 }
 
 /* Islamic Floral/Geometric Corner Accents */
@@ -527,6 +851,11 @@ body {
   border-color: var(--gold-primary);
   opacity: 0.6;
   pointer-events: none;
+  transition: opacity var(--theme-trans);
+}
+
+[data-theme="light"] .ornament-corner {
+  display: none; /* Replaced with hand-finished peony clusters and hairline dividers in light */
 }
 
 .ornament-corner.top-left {
@@ -569,7 +898,7 @@ body {
   transform: translateY(0);
 }
 
-/* Gold Ornamental Divider */
+/* Gold / Rose Ornamental Divider */
 .gold-divider {
   display: flex;
   align-items: center;
@@ -577,6 +906,11 @@ body {
   gap: 12px;
   margin: 22px 0;
   color: var(--gold-primary);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .gold-divider {
+  color: var(--rose);
 }
 
 .gold-divider .divider-line {
@@ -584,6 +918,10 @@ body {
   max-width: 90px;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+}
+
+[data-theme="light"] .gold-divider .divider-line {
+  background: linear-gradient(to right, transparent, var(--line), transparent);
 }
 
 .gold-divider .divider-star {
@@ -614,6 +952,15 @@ body {
   color: var(--gold-primary);
   font-weight: 700;
   margin-bottom: 6px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .section-tag {
+  color: var(--rose);
+  font-family: var(--font-section-label);
+  font-size: 0.84rem;
+  letter-spacing: 0.22em;
+  font-weight: 600;
 }
 
 .section-title {
@@ -623,6 +970,13 @@ body {
   color: var(--ivory-pure);
   letter-spacing: 0.03em;
   line-height: 1.25;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .section-title {
+  font-family: var(--font-section-label);
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .section-desc {
@@ -630,15 +984,96 @@ body {
   color: var(--ivory-muted);
   margin-top: 6px;
   line-height: 1.5;
+  transition: color var(--theme-trans);
 }
 
+[data-theme="light"] .section-desc {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
+  letter-spacing: 0.02em;
+}
 
 /* --------------------------------------------------------------------------
-   HEADER CARD: HERO & NAMES
+   HEADER CARD: HERO ARCH & NAMES
    -------------------------------------------------------------------------- */
 .header-card {
   text-align: center;
   padding-top: 52px;
+}
+
+/* In Rose Light: Tall White Arch with Double-Line Effect */
+[data-theme="light"] .header-card {
+  border-radius: 999px 999px 24px 24px;
+  border: 1.5px solid var(--line);
+  padding-top: 76px;
+  padding-bottom: 56px;
+  position: relative;
+  overflow: visible; /* To allow peony clusters to overlap gracefully */
+}
+
+/* 10px offset inner outline for double-line effect */
+[data-theme="light"] .header-card::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 989px 989px 16px 16px;
+  border: 1px solid rgba(107, 66, 57, 0.35);
+  pointer-events: none;
+}
+
+/* Peony Floral Decor Overlays (Hidden in Dark, Displayed in Light) */
+.arch-floral-decor {
+  display: none;
+}
+
+[data-theme="light"] .arch-floral-decor {
+  display: block;
+  pointer-events: none;
+}
+
+.arch-peony {
+  position: absolute;
+  z-index: 15;
+  filter: drop-shadow(0 8px 18px rgba(107, 66, 57, 0.18));
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+/* Peony Top-Left Cluster overlapping arch edge */
+.peony-tl {
+  top: -28px;
+  left: -28px;
+  width: 155px;
+  height: 155px;
+  object-fit: contain;
+  animation: peonySwayTL 7s ease-in-out infinite alternate;
+}
+
+/* Peony Bottom-Right Cluster overlapping arch edge */
+.peony-br {
+  bottom: -28px;
+  right: -28px;
+  width: 155px;
+  height: 155px;
+  object-fit: contain;
+  animation: peonySwayBR 7s ease-in-out 0.8s infinite alternate;
+}
+
+@keyframes peonySwayTL {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+@keyframes peonySwayBR {
+  0% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .peony-tl,
+  .peony-br {
+    animation: none !important;
+  }
 }
 
 .bismillah-block {
@@ -651,6 +1086,13 @@ body {
   line-height: 1.6;
   color: var(--gold-light);
   text-shadow: 0 4px 20px rgba(212, 175, 55, 0.45);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .bismillah-calligraphy-large {
+  color: var(--ink);
+  text-shadow: none;
+  font-size: clamp(1.8rem, 8vw, 2.6rem);
 }
 
 .bismillah-translation {
@@ -660,6 +1102,15 @@ body {
   font-style: italic;
   letter-spacing: 0.04em;
   margin-top: 4px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .bismillah-translation {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
+  font-style: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
 }
 
 .hero-content {
@@ -673,6 +1124,14 @@ body {
   color: var(--gold-light);
   margin-bottom: 12px;
   text-transform: capitalize;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .islamic-greeting {
+  font-family: var(--font-section-label);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
 }
 
 .invitation-lead {
@@ -680,6 +1139,14 @@ body {
   line-height: 1.65;
   color: var(--ivory-muted);
   margin-bottom: 24px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .invitation-lead {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
 }
 
 .couple-title-container {
@@ -700,6 +1167,10 @@ body {
   pointer-events: none;
 }
 
+[data-theme="light"] .couple-glow-backdrop {
+  display: none;
+}
+
 .groom-name, .bride-name {
   font-family: var(--font-heading);
   font-size: 3.4rem;
@@ -710,6 +1181,20 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 3px 15px rgba(212, 175, 55, 0.3));
+  transition: all var(--theme-trans);
+}
+
+[data-theme="light"] .groom-name,
+[data-theme="light"] .bride-name {
+  font-family: var(--font-names-script);
+  font-size: clamp(2.6rem, 11vw, 4.2rem);
+  line-height: 1.05;
+  color: var(--ink);
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: var(--ink);
+  filter: none;
+  font-weight: normal;
 }
 
 .wedding-ampersand {
@@ -726,11 +1211,23 @@ body {
   background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
 }
 
+[data-theme="light"] .amp-line {
+  background: linear-gradient(to right, transparent, var(--line), transparent);
+}
+
 .amp-symbol {
   font-family: var(--font-heading);
   font-size: 2rem;
   font-style: italic;
   color: var(--gold-primary);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .amp-symbol {
+  font-family: var(--font-section-label);
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--rose);
 }
 
 .hero-subtitle {
@@ -740,8 +1237,17 @@ body {
   color: var(--ivory-muted);
   font-style: italic;
   margin-top: 14px;
+  transition: color var(--theme-trans);
 }
 
+[data-theme="light"] .hero-subtitle {
+  font-family: var(--font-body-jost);
+  font-size: 0.95rem;
+  font-style: normal;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
 
 /* --------------------------------------------------------------------------
    QURANIC VERSE (AR-RUM 30:21)
@@ -756,6 +1262,11 @@ body {
   align-items: center;
   margin-bottom: 12px;
   color: var(--gold-primary);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .mihrab-crest {
+  color: var(--rose);
 }
 
 .mihrab-crest-svg {
@@ -771,6 +1282,13 @@ body {
   color: var(--gold-muted);
   margin-top: -6px;
   font-weight: 600;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .crest-label {
+  color: var(--ink-soft);
+  font-family: var(--font-section-label);
+  letter-spacing: 0.22em;
 }
 
 .quran-quote {
@@ -784,6 +1302,12 @@ body {
   color: var(--gold-light);
   text-shadow: 0 2px 14px rgba(212, 175, 55, 0.35);
   margin-bottom: 16px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .quran-arabic {
+  color: var(--ink);
+  text-shadow: none;
 }
 
 .quran-translation {
@@ -793,6 +1317,15 @@ body {
   line-height: 1.65;
   color: var(--ivory-pure);
   font-style: italic;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .quran-translation {
+  font-family: var(--font-section-label);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink);
+  font-style: normal;
 }
 
 .quran-surah {
@@ -804,8 +1337,14 @@ body {
   color: var(--gold-primary);
   margin-top: 14px;
   font-weight: 600;
+  transition: color var(--theme-trans);
 }
 
+[data-theme="light"] .quran-surah {
+  color: var(--rose);
+  font-family: var(--font-body-jost);
+  letter-spacing: 0.1em;
+}
 
 /* --------------------------------------------------------------------------
    COUNTDOWN TIMER
@@ -841,6 +1380,13 @@ body {
               inset 0 1px 1px rgba(255, 240, 190, 0.3);
   position: relative;
   overflow: hidden;
+  transition: background var(--theme-trans), border-color var(--theme-trans), box-shadow var(--theme-trans);
+}
+
+[data-theme="light"] .countdown-dial {
+  background: var(--surface);
+  border: 1.5px solid rgba(185, 128, 138, 0.4);
+  box-shadow: 0 8px 24px -6px rgba(185, 128, 138, 0.25);
 }
 
 .countdown-dial::after {
@@ -854,6 +1400,11 @@ body {
   box-shadow: 0 1px 0 rgba(212, 175, 55, 0.2);
 }
 
+[data-theme="light"] .countdown-dial::after {
+  background: rgba(107, 66, 57, 0.12);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 .countdown-dial .number {
   font-family: var(--font-heading);
   font-size: 2.4rem;
@@ -861,6 +1412,15 @@ body {
   color: var(--gold-light);
   line-height: 1;
   text-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .countdown-dial .number {
+  font-family: var(--font-section-label);
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-shadow: none;
 }
 
 .unit-label {
@@ -869,6 +1429,13 @@ body {
   font-weight: 700;
   color: var(--ivory-muted);
   margin-top: 8px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .unit-label {
+  color: var(--ink-soft);
+  font-family: var(--font-section-label);
+  letter-spacing: 0.18em;
 }
 
 .countdown-sep {
@@ -877,6 +1444,11 @@ body {
   color: var(--gold-primary);
   opacity: 0.7;
   margin-top: -24px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .countdown-sep {
+  color: var(--rose);
 }
 
 .nikah-date-badge {
@@ -889,8 +1461,15 @@ body {
   border-radius: 30px;
   font-size: 0.85rem;
   color: var(--gold-light);
+  transition: all var(--theme-trans);
 }
 
+[data-theme="light"] .nikah-date-badge {
+  background: rgba(185, 128, 138, 0.12);
+  border-color: rgba(185, 128, 138, 0.35);
+  color: var(--ink);
+  font-family: var(--font-body-jost);
+}
 
 /* --------------------------------------------------------------------------
    EVENTS TIMELINE (NIKAH & RECEPTION)
@@ -907,15 +1486,26 @@ body {
   border-radius: 16px;
   padding: 28px 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  transition: transform 0.35s var(--trans-smooth), border-color 0.35s ease;
+  transition: transform 0.35s var(--trans-smooth), border-color 0.35s ease, background var(--theme-trans), box-shadow var(--theme-trans);
   position: relative;
   overflow: hidden;
+}
+
+[data-theme="light"] .event-item-card {
+  background: var(--surface);
+  border: 1.5px solid rgba(107, 66, 57, 0.25);
+  box-shadow: var(--shadow);
 }
 
 .event-item-card:hover {
   transform: translateY(-3px);
   border-color: var(--gold-primary);
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+[data-theme="light"] .event-item-card:hover {
+  border-color: var(--rose);
+  box-shadow: 0 20px 48px -12px rgba(185, 128, 138, 0.45);
 }
 
 .event-header {
@@ -925,6 +1515,11 @@ body {
   margin-bottom: 16px;
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
   padding-bottom: 12px;
+  transition: border-color var(--theme-trans);
+}
+
+[data-theme="light"] .event-header {
+  border-bottom-color: rgba(107, 66, 57, 0.18);
 }
 
 .event-badge {
@@ -935,6 +1530,14 @@ body {
   color: #041a12;
   padding: 3px 10px;
   border-radius: 20px;
+  transition: background-color var(--theme-trans), color var(--theme-trans);
+}
+
+[data-theme="light"] .event-badge {
+  background: var(--rose);
+  color: #FFFFFF;
+  font-family: var(--font-section-label);
+  letter-spacing: 0.16em;
 }
 
 .event-hijri {
@@ -942,6 +1545,12 @@ body {
   color: var(--gold-light);
   font-family: var(--font-heading);
   letter-spacing: 0.04em;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .event-hijri {
+  color: var(--ink-soft);
+  font-family: var(--font-section-label);
 }
 
 .event-name {
@@ -950,6 +1559,13 @@ body {
   font-weight: 600;
   color: var(--ivory-pure);
   line-height: 1.2;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .event-name {
+  font-family: var(--font-section-label);
+  color: var(--ink);
+  font-size: 1.65rem;
 }
 
 .event-arabic-title {
@@ -958,6 +1574,11 @@ body {
   color: var(--gold-light);
   margin-top: 2px;
   margin-bottom: 20px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .event-arabic-title {
+  color: var(--rose);
 }
 
 .event-meta-grid {
@@ -984,6 +1605,13 @@ body {
   justify-content: center;
   color: var(--gold-primary);
   flex-shrink: 0;
+  transition: all var(--theme-trans);
+}
+
+[data-theme="light"] .meta-icon {
+  background: rgba(185, 128, 138, 0.12);
+  border-color: rgba(185, 128, 138, 0.35);
+  color: var(--rose);
 }
 
 .meta-text {
@@ -996,12 +1624,25 @@ body {
   letter-spacing: 0.12em;
   font-weight: 700;
   color: var(--gold-muted);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .meta-label {
+  color: var(--rose);
+  font-family: var(--font-section-label);
+  letter-spacing: 0.18em;
 }
 
 .meta-val {
   font-size: 1.05rem;
   color: var(--ivory-pure);
   font-weight: 500;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .meta-val {
+  color: var(--ink);
+  font-family: var(--font-body-jost);
 }
 
 .venue-highlight {
@@ -1009,11 +1650,24 @@ body {
   font-size: 1.35rem;
   color: var(--gold-light);
   font-weight: 600;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .venue-highlight {
+  color: var(--ink);
+  font-family: var(--font-section-label);
+  font-size: 1.2rem;
 }
 
 .meta-sub {
   font-size: 0.84rem;
   color: var(--ivory-dim);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .meta-sub {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
 }
 
 /* Action Buttons (Maps & Calendar) */
@@ -1028,6 +1682,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 48px;
   padding: 12px 18px;
   border-radius: 12px;
   font-family: var(--font-body);
@@ -1036,7 +1691,19 @@ body {
   letter-spacing: 0.04em;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s var(--trans-smooth);
+  transition: transform 120ms ease, background 0.3s var(--trans-smooth), color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-action:active {
+  transform: scale(0.97);
+}
+
+.btn-action svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-action:hover svg {
+  transform: translateX(3px);
 }
 
 .primary-btn {
@@ -1052,6 +1719,25 @@ body {
   box-shadow: 0 6px 22px rgba(212, 175, 55, 0.45);
 }
 
+[data-theme="light"] .btn-action {
+  min-height: 52px;
+  border-radius: 999px;
+  font-family: var(--font-body-jost);
+}
+
+[data-theme="light"] .primary-btn {
+  background: var(--rose);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 6px 20px -4px rgba(185, 128, 138, 0.45);
+}
+
+[data-theme="light"] .primary-btn:hover {
+  background: var(--plum);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px -2px rgba(78, 47, 52, 0.4);
+}
+
 .secondary-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(212, 175, 55, 0.4);
@@ -1064,6 +1750,17 @@ body {
   transform: translateY(-2px);
 }
 
+[data-theme="light"] .secondary-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+}
+
+[data-theme="light"] .secondary-btn:hover {
+  background: var(--rose-light);
+  border-color: var(--rose);
+  color: var(--plum);
+}
 
 /* --------------------------------------------------------------------------
    VENUES SHOWCASE & SCAN-TO-NAVIGATE QR SECTION
@@ -1087,12 +1784,22 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, background var(--theme-trans), box-shadow var(--theme-trans);
+}
+
+[data-theme="light"] .qr-showcase-item {
+  background: var(--surface);
+  border: 1.5px solid rgba(107, 66, 57, 0.25);
+  box-shadow: var(--shadow);
 }
 
 .qr-showcase-item:hover {
   transform: translateY(-3px);
   border-color: var(--gold-primary);
+}
+
+[data-theme="light"] .qr-showcase-item:hover {
+  border-color: var(--rose);
 }
 
 .qr-badge {
@@ -1101,6 +1808,13 @@ body {
   letter-spacing: 0.12em;
   color: var(--gold-primary);
   margin-bottom: 6px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .qr-badge {
+  color: var(--rose);
+  font-family: var(--font-section-label);
+  letter-spacing: 0.18em;
 }
 
 .qr-venue-name {
@@ -1112,6 +1826,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .qr-venue-name {
+  color: var(--ink);
+  font-family: var(--font-section-label);
+  font-size: 1.05rem;
 }
 
 .qr-image-wrapper {
@@ -1126,6 +1847,7 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(107, 66, 57, 0.15);
 }
 
 .venue-qr-img {
@@ -1139,6 +1861,12 @@ body {
   font-size: 0.72rem;
   color: var(--ivory-dim);
   margin: 12px 0 10px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .qr-hint {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
 }
 
 .qr-direct-link {
@@ -1151,14 +1879,21 @@ body {
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
+[data-theme="light"] .qr-direct-link {
+  color: var(--rose);
+  border-bottom-color: rgba(185, 128, 138, 0.6);
+  font-family: var(--font-body-jost);
+}
+
 .qr-direct-link:hover {
   color: #fff;
   border-bottom-color: #fff;
 }
 
-
-
-
+[data-theme="light"] .qr-direct-link:hover {
+  color: var(--plum);
+  border-bottom-color: var(--plum);
+}
 
 /* --------------------------------------------------------------------------
    FOOTER SECTION
@@ -1178,6 +1913,12 @@ body {
   align-items: center;
   justify-content: center;
   background: rgba(212, 175, 55, 0.08);
+  transition: all var(--theme-trans);
+}
+
+[data-theme="light"] .footer-crest {
+  border-color: var(--rose);
+  background: rgba(185, 128, 138, 0.1);
 }
 
 .footer-initials {
@@ -1185,6 +1926,14 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--gold-light);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .footer-initials {
+  font-family: var(--font-names-script);
+  font-size: 1.8rem;
+  font-weight: normal;
+  color: var(--ink);
 }
 
 .footer-message {
@@ -1193,6 +1942,14 @@ body {
   font-style: italic;
   color: var(--ivory-pure);
   margin-bottom: 20px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .footer-message {
+  font-family: var(--font-section-label);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink);
 }
 
 .footer-arabic-thanks {
@@ -1201,6 +1958,12 @@ body {
   color: var(--gold-light);
   line-height: 1.5;
   text-shadow: 0 2px 12px rgba(212, 175, 55, 0.35);
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .footer-arabic-thanks {
+  color: var(--ink);
+  text-shadow: none;
 }
 
 .footer-trans-thanks {
@@ -1210,6 +1973,13 @@ body {
   color: var(--gold-primary);
   text-transform: uppercase;
   margin-bottom: 24px;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .footer-trans-thanks {
+  color: var(--rose);
+  font-family: var(--font-section-label);
+  letter-spacing: 0.18em;
 }
 
 .footer-names {
@@ -1217,13 +1987,28 @@ body {
   font-size: 1.15rem;
   color: var(--ivory-muted);
   line-height: 1.6;
+  transition: color var(--theme-trans);
+}
+
+[data-theme="light"] .footer-names {
+  color: var(--ink-soft);
+  font-family: var(--font-body-jost);
 }
 
 .footer-names strong {
   color: var(--gold-light);
   font-size: 1.35rem;
+  transition: color var(--theme-trans);
 }
 
+[data-theme="light"] .footer-names strong {
+  color: var(--ink);
+  font-family: var(--font-names-script);
+  font-size: 2.1rem;
+  font-weight: normal;
+  display: inline-block;
+  margin: 4px 0;
+}
 
 /* ==========================================================================
    RESPONSIVE DESIGN & MOBILE OPTIMIZATION
@@ -1232,6 +2017,11 @@ body {
   .section-card {
     padding: 34px 20px;
     border-radius: 16px;
+  }
+
+  [data-theme="light"] .header-card {
+    border-radius: 999px 999px 20px 20px;
+    padding-top: 68px;
   }
 
   .palace-arch-frame {
@@ -1252,6 +2042,11 @@ body {
 
   .groom-name, .bride-name {
     font-size: 2.6rem;
+  }
+
+  [data-theme="light"] .groom-name,
+  [data-theme="light"] .bride-name {
+    font-size: clamp(2.3rem, 10vw, 3.2rem);
   }
 
   .bismillah-calligraphy-large {
@@ -1283,5 +2078,43 @@ body {
   .qr-cards-grid {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .peony-tl {
+    width: 120px;
+    height: 120px;
+    top: -20px;
+    left: -20px;
+  }
+
+  .peony-br {
+    width: 120px;
+    height: 120px;
+    bottom: -20px;
+    right: -20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .theme-toggle-btn {
+    padding: 6px 10px;
+  }
+
+  .toggle-theme-label {
+    display: none; /* Icon and track only on very narrow viewports */
+  }
+
+  .peony-tl {
+    width: 100px;
+    height: 100px;
+    top: -16px;
+    left: -16px;
+  }
+
+  .peony-br {
+    width: 100px;
+    height: 100px;
+    bottom: -16px;
+    right: -16px;
   }
 }

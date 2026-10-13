@@ -1,122 +1,289 @@
 /* ==========================================================================
    WEDDING INVITATION MOTION ENGINE
    Mohammed Saman & Huma - 23rd & 25th October 2026
+   Dual Theme: Emerald Velvet (Dark - Default) & Rose Light (Editorial Luxury)
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+// --- PARTICLE CLASSES (Defined at top to avoid Temporal Dead Zone issues) ---
+class GoldParticle {
+  constructor(width, height, init = false) {
+    this.reset(width, height, init);
+  }
+
+  reset(width, height, init = false) {
+    this.x = Math.random() * width;
+    this.y = init ? Math.random() * height : height + 10;
+    this.size = Math.random() * 2 + 0.8;
+    this.speedY = Math.random() * 0.45 + 0.15;
+    this.speedX = (Math.random() - 0.5) * 0.25;
+    this.opacity = Math.random() * 0.6 + 0.2;
+    this.fadeSpeed = Math.random() * 0.006 + 0.003;
+    this.fadeDirection = 1;
+  }
+
+  update(width, height) {
+    this.y -= this.speedY;
+    this.x += this.speedX;
+
+    this.opacity += this.fadeSpeed * this.fadeDirection;
+    if (this.opacity >= 0.8) {
+      this.fadeDirection = -1;
+    } else if (this.opacity <= 0.15) {
+      this.fadeDirection = 1;
+    }
+
+    if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+      this.reset(width, height);
+    }
+  }
+
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(245, 214, 130, ${this.opacity})`;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = 'rgba(212, 175, 55, 0.7)';
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+class RosePetal {
+  constructor(width, height, index = 0, total = 6) {
+    this.reset(width, height, true, (index / total) * height);
+  }
+
+  reset(width, height, init = false, customY = null) {
+    this.x = Math.random() * width;
+    this.y = init && customY !== null ? customY : -30;
+    this.width = Math.random() * 7 + 10;
+    this.height = Math.random() * 5 + 8;
+    const fallDurationSeconds = Math.random() * 6 + 14; 
+    this.speedY = (height / (fallDurationSeconds * 60)); 
+    this.speedX = Math.sin(Math.random() * Math.PI) * 0.35;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.02;
+    this.swayAngle = Math.random() * Math.PI * 2;
+    this.swaySpeed = Math.random() * 0.02 + 0.015;
+    this.opacity = 0.48;
+  }
+
+  update(width, height) {
+    this.swayAngle += this.swaySpeed;
+    this.x += Math.sin(this.swayAngle) * 0.5 + this.speedX;
+    this.y += this.speedY;
+    this.rotation += this.rotSpeed;
+
+    if (this.y > height + 30 || this.x < -40 || this.x > width + 40) {
+      this.reset(width, height);
+    }
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.beginPath();
+
+    ctx.moveTo(0, -this.height / 2);
+    ctx.quadraticCurveTo(this.width / 2, -this.height / 4, this.width / 3, this.height / 2);
+    ctx.quadraticCurveTo(0, this.height * 0.7, -this.width / 3, this.height / 2);
+    ctx.quadraticCurveTo(-this.width / 2, -this.height / 4, 0, -this.height / 2);
+
+    ctx.fillStyle = `rgba(185, 128, 138, ${this.opacity})`;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(0, 0, this.width * 0.25, this.height * 0.35, 0, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(227, 190, 195, ${this.opacity * 0.6})`;
+    ctx.fill();
+
+    ctx.restore();
+  }
+}
+
+
+// --- MAIN INITIALIZATION ---
+function initApp() {
 
   // --------------------------------------------------------------------------
-  // 1. PALACE ARCH DOORS OPENING LOGIC
+  // 1. OPEN INVITATION DOOR HANDLER (Direct & Delegated)
   // --------------------------------------------------------------------------
-  const openBtn = document.getElementById('open-invite-btn');
-  const doorStage = document.getElementById('door-stage');
-  const mainContent = document.getElementById('main-content');
-  const doorLeft = document.getElementById('door-left');
-  const doorRight = document.getElementById('door-right');
+  let doorsOpened = false;
+  function openDoors() {
+    if (doorsOpened) return;
+    doorsOpened = true;
 
-  if (openBtn && doorStage && mainContent) {
-    openBtn.addEventListener('click', () => {
-      // 1. Play door opening transition
+    const doorStage = document.getElementById('door-stage');
+    const mainContent = document.getElementById('main-content');
+
+    if (doorStage && mainContent) {
+      // 1. Trigger door swing animation
       doorStage.classList.add('opening');
 
-      // 2. Reveal main content smoothly behind doors
+      // 2. Unhide inner card content smoothly
       mainContent.classList.remove('hidden-initially');
 
-      // 3. Trigger reveal animation on header card immediately
+      // 3. Reveal first card
       setTimeout(() => {
         const firstCard = document.querySelector('.header-card');
         if (firstCard) firstCard.classList.add('revealed');
       }, 500);
 
-      // 4. Fully hide door stage after animation completes
+      // 4. Cleanly dismiss door stage
       setTimeout(() => {
         doorStage.classList.add('opened');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1500);
+      }, 1400);
+    }
+  }
+
+  const openBtn = document.getElementById('open-invite-btn');
+  if (openBtn) {
+    openBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openDoors();
     });
   }
 
 
   // --------------------------------------------------------------------------
-  // 2. AMBIENT GOLD DUST PARTICLES (CANVAS)
+  // 2. THEME SWITCHER CONTROLLER (EMERALD DARK <-> ROSE LIGHT)
+  // --------------------------------------------------------------------------
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeLabelText = document.getElementById('theme-label-text');
+  const themeColorMeta = document.getElementById('theme-color-meta');
+
+  function getActiveTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
+
+  function applyTheme(theme, persist = true) {
+    document.documentElement.setAttribute('data-theme', theme);
+
+    if (persist) {
+      try {
+        localStorage.setItem('wedding_theme', theme);
+      } catch (err) {
+        // Safe fail
+      }
+    }
+
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', theme === 'light' ? '#EFE9E1' : '#03140e');
+    }
+
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    }
+
+    if (themeLabelText) {
+      themeLabelText.textContent = theme === 'light' ? 'Emerald Dark' : 'Rose Light';
+    }
+
+    // Refresh particles
+    initCanvasParticles();
+  }
+
+  function toggleTheme() {
+    const current = getActiveTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next, true);
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleTheme();
+    });
+  }
+
+  // Global Delegated Click Listener (Extra Safety Net)
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#open-invite-btn')) {
+      openDoors();
+    } else if (e.target.closest('#theme-toggle-btn')) {
+      toggleTheme();
+    }
+  });
+
+
+  // --------------------------------------------------------------------------
+  // 3. AMBIENT PARTICLES ENGINE
   // --------------------------------------------------------------------------
   const canvas = document.getElementById('particles-canvas');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+  let ctx = null;
+  let animId = null;
+  let particles = [];
+  let width = 0;
+  let height = 0;
 
-    window.addEventListener('resize', () => {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (animId) cancelAnimationFrame(animId);
+    } else {
+      if (!prefersReducedMotion && canvas) {
+        loopParticles();
+      }
+    }
+  });
+
+  function initCanvasParticles() {
+    if (!canvas || prefersReducedMotion) return;
+    if (animId) cancelAnimationFrame(animId);
+
+    try {
+      ctx = canvas.getContext('2d');
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-    });
+      particles = [];
 
-    const particles = [];
-    const particleCount = Math.min(width > 768 ? 45 : 25, 45);
+      const isLight = getActiveTheme() === 'light';
 
-    class GoldParticle {
-      constructor() {
-        this.reset(true);
-      }
-
-      reset(init = false) {
-        this.x = Math.random() * width;
-        this.y = init ? Math.random() * height : height + 10;
-        this.size = Math.random() * 2 + 0.8;
-        this.speedY = Math.random() * 0.45 + 0.15;
-        this.speedX = (Math.random() - 0.5) * 0.25;
-        this.opacity = Math.random() * 0.6 + 0.2;
-        this.fadeSpeed = Math.random() * 0.006 + 0.003;
-        this.fadeDirection = 1;
-      }
-
-      update() {
-        this.y -= this.speedY;
-        this.x += this.speedX;
-
-        // Twinkle pulse
-        this.opacity += this.fadeSpeed * this.fadeDirection;
-        if (this.opacity >= 0.8) {
-          this.fadeDirection = -1;
-        } else if (this.opacity <= 0.15) {
-          this.fadeDirection = 1;
+      if (isLight) {
+        // Maximum 6 slow falling rose petals
+        const petalCount = 6;
+        for (let i = 0; i < petalCount; i++) {
+          particles.push(new RosePetal(width, height, i, petalCount));
         }
-
-        // Loop to bottom if floated off screen
-        if (this.y < -10 || this.x < -10 || this.x > width + 10) {
-          this.reset();
+      } else {
+        // Dark theme: subtle floating gold dust
+        const dustCount = Math.min(width > 768 ? 40 : 20, 40);
+        for (let i = 0; i < dustCount; i++) {
+          particles.push(new GoldParticle(width, height, true));
         }
       }
 
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(245, 214, 130, ${this.opacity})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = 'rgba(212, 175, 55, 0.7)';
-        ctx.fill();
-        ctx.shadowBlur = 0; // reset
-      }
+      loopParticles();
+    } catch (err) {
+      console.warn('Canvas particle initialization skipped:', err);
     }
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new GoldParticle());
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    animateParticles();
   }
 
+  function loopParticles() {
+    if (!ctx || document.hidden || prefersReducedMotion) return;
+    ctx.clearRect(0, 0, width, height);
 
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update(width, height);
+      particles[i].draw(ctx);
+    }
 
+    animId = requestAnimationFrame(loopParticles);
+  }
+
+  window.addEventListener('resize', () => {
+    if (canvas) {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+  });
+
+  // Initial theme application and particles
+  const currentInitialTheme = getActiveTheme();
+  applyTheme(currentInitialTheme, false);
 
 
   // --------------------------------------------------------------------------
@@ -127,7 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const cdMinutes = document.getElementById('cd-minutes');
   const cdSeconds = document.getElementById('cd-seconds');
 
-  // Nikah Date: 2026-10-23T20:00:00+05:30 (India Standard Time)
   const targetDate = new Date('2026-10-23T20:00:00+05:30').getTime();
 
   function updateCountdown() {
@@ -167,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -177,15 +344,20 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     revealItems.forEach((item) => item.classList.add('revealed'));
   }
+}
 
-
-});
+// Run immediately if DOM is ready, or on DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
 
 // ----------------------------------------------------------------------------
-// 7. CALENDAR INTEGRATION (.ICS FILE DOWNLOAD / GOOGLE CALENDAR)
+// 6. CALENDAR INTEGRATION (.ICS FILE DOWNLOAD)
 // ----------------------------------------------------------------------------
-function addToCalendar(eventType) {
+window.addToCalendar = function(eventType) {
   let title = '';
   let location = '';
   let startDate = '';
@@ -206,7 +378,6 @@ function addToCalendar(eventType) {
     description = 'You are cordially invited to celebrate the Walima / Reception of Mohammed Saman & Huma.';
   }
 
-  // Create .ics file content
   const icsData = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -231,4 +402,4 @@ function addToCalendar(eventType) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-}
+};
