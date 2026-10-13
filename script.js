@@ -4,7 +4,65 @@
    Dual Theme: Emerald Velvet (Dark - Default) & Rose Light (Editorial Luxury)
    ========================================================================== */
 
-// --- PARTICLE CLASSES (Defined at top to avoid Temporal Dead Zone issues) ---
+// --- GLOBAL THEME & DOOR HANDLERS (Directly accessible via inline and event listeners) ---
+window.openDoors = function(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const doorStage = document.getElementById('door-stage');
+  const mainContent = document.getElementById('main-content');
+
+  if (doorStage && mainContent) {
+    doorStage.classList.add('opening');
+    mainContent.classList.remove('hidden-initially');
+
+    setTimeout(() => {
+      const firstCard = document.querySelector('.header-card');
+      if (firstCard) firstCard.classList.add('revealed');
+    }, 500);
+
+    setTimeout(() => {
+      doorStage.classList.add('opened');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1400);
+  }
+};
+
+window.toggleTheme = function(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  if (e && e.stopPropagation) e.stopPropagation();
+
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+
+  document.documentElement.setAttribute('data-theme', next);
+
+  try {
+    localStorage.setItem('wedding_theme', next);
+  } catch (err) {
+    // Fail silently in private browsing mode
+  }
+
+  const meta = document.getElementById('theme-color-meta');
+  if (meta) {
+    meta.setAttribute('content', next === 'light' ? '#EFE9E1' : '#03140e');
+  }
+
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) {
+    btn.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
+  }
+
+  const label = document.getElementById('theme-label-text');
+  if (label) {
+    label.textContent = next === 'light' ? 'Emerald Dark' : 'Rose Light';
+  }
+
+  if (typeof window.refreshParticles === 'function') {
+    window.refreshParticles();
+  }
+};
+
+
+// --- PARTICLE CLASSES (Defined before canvas engine usage) ---
 class GoldParticle {
   constructor(width, height, init = false) {
     this.reset(width, height, init);
@@ -103,113 +161,23 @@ class RosePetal {
 }
 
 
-// --- MAIN INITIALIZATION ---
+// --- MAIN APPLICATION INIT ---
 function initApp() {
 
-  // --------------------------------------------------------------------------
-  // 1. OPEN INVITATION DOOR HANDLER (Direct & Delegated)
-  // --------------------------------------------------------------------------
-  let doorsOpened = false;
-  function openDoors() {
-    if (doorsOpened) return;
-    doorsOpened = true;
-
-    const doorStage = document.getElementById('door-stage');
-    const mainContent = document.getElementById('main-content');
-
-    if (doorStage && mainContent) {
-      // 1. Trigger door swing animation
-      doorStage.classList.add('opening');
-
-      // 2. Unhide inner card content smoothly
-      mainContent.classList.remove('hidden-initially');
-
-      // 3. Reveal first card
-      setTimeout(() => {
-        const firstCard = document.querySelector('.header-card');
-        if (firstCard) firstCard.classList.add('revealed');
-      }, 500);
-
-      // 4. Cleanly dismiss door stage
-      setTimeout(() => {
-        doorStage.classList.add('opened');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1400);
-    }
+  // Sync initial labels and attributes
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const label = document.getElementById('theme-label-text');
+  if (label) {
+    label.textContent = currentTheme === 'light' ? 'Emerald Dark' : 'Rose Light';
   }
-
-  const openBtn = document.getElementById('open-invite-btn');
-  if (openBtn) {
-    openBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openDoors();
-    });
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) {
+    btn.setAttribute('aria-pressed', currentTheme === 'light' ? 'true' : 'false');
   }
 
 
   // --------------------------------------------------------------------------
-  // 2. THEME SWITCHER CONTROLLER (EMERALD DARK <-> ROSE LIGHT)
-  // --------------------------------------------------------------------------
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  const themeLabelText = document.getElementById('theme-label-text');
-  const themeColorMeta = document.getElementById('theme-color-meta');
-
-  function getActiveTheme() {
-    return document.documentElement.getAttribute('data-theme') || 'dark';
-  }
-
-  function applyTheme(theme, persist = true) {
-    document.documentElement.setAttribute('data-theme', theme);
-
-    if (persist) {
-      try {
-        localStorage.setItem('wedding_theme', theme);
-      } catch (err) {
-        // Safe fail
-      }
-    }
-
-    if (themeColorMeta) {
-      themeColorMeta.setAttribute('content', theme === 'light' ? '#EFE9E1' : '#03140e');
-    }
-
-    if (themeToggleBtn) {
-      themeToggleBtn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
-    }
-
-    if (themeLabelText) {
-      themeLabelText.textContent = theme === 'light' ? 'Emerald Dark' : 'Rose Light';
-    }
-
-    // Refresh particles
-    initCanvasParticles();
-  }
-
-  function toggleTheme() {
-    const current = getActiveTheme();
-    const next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next, true);
-  }
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleTheme();
-    });
-  }
-
-  // Global Delegated Click Listener (Extra Safety Net)
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('#open-invite-btn')) {
-      openDoors();
-    } else if (e.target.closest('#theme-toggle-btn')) {
-      toggleTheme();
-    }
-  });
-
-
-  // --------------------------------------------------------------------------
-  // 3. AMBIENT PARTICLES ENGINE
+  // AMBIENT PARTICLES ENGINE
   // --------------------------------------------------------------------------
   const canvas = document.getElementById('particles-canvas');
   let ctx = null;
@@ -240,7 +208,7 @@ function initApp() {
       height = canvas.height = window.innerHeight;
       particles = [];
 
-      const isLight = getActiveTheme() === 'light';
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
       if (isLight) {
         // Maximum 6 slow falling rose petals
@@ -262,6 +230,8 @@ function initApp() {
     }
   }
 
+  window.refreshParticles = initCanvasParticles;
+
   function loopParticles() {
     if (!ctx || document.hidden || prefersReducedMotion) return;
     ctx.clearRect(0, 0, width, height);
@@ -281,13 +251,11 @@ function initApp() {
     }
   });
 
-  // Initial theme application and particles
-  const currentInitialTheme = getActiveTheme();
-  applyTheme(currentInitialTheme, false);
+  initCanvasParticles();
 
 
   // --------------------------------------------------------------------------
-  // 4. LIVE NIKAH COUNTDOWN TIMER (23 OCTOBER 2026, 20:00:00 IST)
+  // LIVE NIKAH COUNTDOWN TIMER (23 OCTOBER 2026, 20:00:00 IST)
   // --------------------------------------------------------------------------
   const cdDays = document.getElementById('cd-days');
   const cdHours = document.getElementById('cd-hours');
@@ -324,7 +292,7 @@ function initApp() {
 
 
   // --------------------------------------------------------------------------
-  // 5. SCROLL-TRIGGERED REVEAL OBSERVER
+  // SCROLL-TRIGGERED REVEAL OBSERVER
   // --------------------------------------------------------------------------
   const revealItems = document.querySelectorAll('.reveal-item');
   if ('IntersectionObserver' in window) {
@@ -346,7 +314,7 @@ function initApp() {
   }
 }
 
-// Run immediately if DOM is ready, or on DOMContentLoaded
+// Start application
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {
@@ -355,7 +323,7 @@ if (document.readyState === 'loading') {
 
 
 // ----------------------------------------------------------------------------
-// 6. CALENDAR INTEGRATION (.ICS FILE DOWNLOAD)
+// CALENDAR INTEGRATION (.ICS FILE DOWNLOAD)
 // ----------------------------------------------------------------------------
 window.addToCalendar = function(eventType) {
   let title = '';

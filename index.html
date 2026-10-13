@@ -34,38 +34,30 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2.3" />
 </head>
 <body>
 
   <!-- Floating Ambient Particles / Falling Petals Canvas -->
   <canvas id="particles-canvas" class="particles-bg"></canvas>
 
-  <!-- Theme Mode Toggle (Emerald Dark <-> Rose Light) -->
+  <!-- Theme Mode Toggle (Single Icon) -->
   <aside class="theme-toggle-container" aria-label="Theme switcher">
-    <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Switch between Emerald Dark and Rose Light themes" aria-pressed="false" title="Toggle Theme">
-      <span class="toggle-mode-icon moon-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+    <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="window.toggleTheme(event)" aria-label="Switch theme" aria-pressed="false" title="Toggle Theme">
+      <span class="toggle-icon-wrap" aria-hidden="true">
+        <!-- Moon (dark mode active) -->
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
-      </span>
-      <span class="toggle-switch-track" aria-hidden="true">
-        <span class="toggle-switch-thumb"></span>
-      </span>
-      <span class="toggle-mode-icon sun-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <!-- Sun (light mode active) -->
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <circle cx="12" cy="12" r="4.5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
       </span>
-      <span class="toggle-theme-label" id="theme-label-text">Rose Light</span>
     </button>
   </aside>
 
@@ -75,6 +67,68 @@
        STAGE 1: THE ROYAL PALACE ARCH DOOR REVEAL
        ============================================== -->
   <div id="door-stage" class="door-stage">
+
+    <!-- Ambient floral canvas behind the door (dark = gold dust, light = petals) -->
+    <canvas id="door-particles-canvas" class="door-particles-canvas"></canvas>
+
+    <!-- Decorative shimmer veil lines -->
+    <div class="door-shimmer-veil" aria-hidden="true">
+      <span class="veil-line"></span><span class="veil-line"></span>
+      <span class="veil-line"></span><span class="veil-line"></span>
+      <span class="veil-line"></span>
+    </div>
+
+    <!-- Corner floral sprays (CSS-drawn, theme-aware) -->
+    <div class="door-corner-flora door-flora-tl" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg">
+        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
+        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
+        <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50"/>
+        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
+        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
+        <circle class="flora-bloom" cx="95" cy="50" r="6"/>
+        <circle class="flora-petal" cx="100" cy="10" r="5"/>
+        <circle class="flora-petal" cx="75" cy="30" r="4"/>
+        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
+        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
+        <circle class="flora-leaf" cx="55" cy="80" r="3.5"/>
+      </svg>
+    </div>
+    <div class="door-corner-flora door-flora-tr" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg" style="transform:scaleX(-1)">
+        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
+        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
+        <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50"/>
+        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
+        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
+        <circle class="flora-bloom" cx="95" cy="50" r="6"/>
+        <circle class="flora-petal" cx="100" cy="10" r="5"/>
+        <circle class="flora-petal" cx="75" cy="30" r="4"/>
+        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
+        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
+        <circle class="flora-leaf" cx="55" cy="80" r="3.5"/>
+      </svg>
+    </div>
+    <div class="door-corner-flora door-flora-bl" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg" style="transform:scaleY(-1)">
+        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
+        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
+        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
+        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
+        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
+        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
+      </svg>
+    </div>
+    <div class="door-corner-flora door-flora-br" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg" style="transform:scale(-1,-1)">
+        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
+        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
+        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
+        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
+        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
+        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
+      </svg>
+    </div>
     <div class="door-perspective-wrapper">
       
       <!-- Palace Outer Arch Frame -->
@@ -137,7 +191,7 @@
           </div>
 
           <!-- Open Button with Golden Glow Pulse -->
-          <button id="open-invite-btn" class="open-card-button" aria-label="Tap to open the wedding invitation">
+          <button id="open-invite-btn" class="open-card-button" onclick="window.openDoors(event)" aria-label="Tap to open the wedding invitation">
             <span class="btn-shine"></span>
             <span class="btn-text">TAP TO OPEN INVITATION</span>
           </button>
@@ -306,7 +360,7 @@
         </div>
 
         <div class="nikah-date-badge">
-          <span class="badge-icon">📅</span>
+          <span class="badge-icon"></span>
           <span>Friday, 23rd October 2026 • 12 Jumādā al-Ūlā 1448 AH</span>
         </div>
       </section>
@@ -389,10 +443,7 @@
                    rel="noopener noreferrer" 
                    class="btn-action primary-btn"
                    id="btn-nikah-map">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                    <circle cx="12" cy="9" r="2.5"/>
-                  </svg>
+                 
                   <span>Open in Google Maps</span>
                 </a>
 
@@ -477,10 +528,7 @@
                    rel="noopener noreferrer" 
                    class="btn-action primary-btn"
                    id="btn-reception-map">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                    <circle cx="12" cy="9" r="2.5"/>
-                  </svg>
+                  
                   <span>Open in Google Maps</span>
                 </a>
 
@@ -506,53 +554,7 @@
       </section>
 
 
-      <!-- VENUE SHOWCASE & LOCATION QR CODES -->
-      <section class="section-card venues-showcase-card reveal-item" aria-label="Venues and Directions">
-        <div class="ornament-corner top-left"></div>
-        <div class="ornament-corner top-right"></div>
-        <div class="ornament-corner bottom-left"></div>
-        <div class="ornament-corner bottom-right"></div>
 
-        <div class="section-heading-wrapper">
-          <span class="section-tag">EASY NAVIGATION</span>
-          <h2 class="section-title">Venues & Scan to Navigate</h2>
-          <p class="section-desc">Tap to view live routes or scan the QR code directly from another screen</p>
-        </div>
-
-        <div class="qr-cards-grid">
-          
-          <!-- QR Card 1: Nikah -->
-          <div class="qr-showcase-item">
-            <div class="qr-badge">NIKAH LOCATION</div>
-            <h4 class="qr-venue-name">Mezbaan Function Hall</h4>
-            <div class="qr-image-wrapper">
-              <img src="extracted_assets/qr_nikah.png" alt="Scan QR for Mezbaan Function Hall" class="venue-qr-img" />
-              <div class="qr-scan-lens"></div>
-            </div>
-            <p class="qr-hint">Scan with your smartphone camera</p>
-            <a href="https://www.google.com/maps/place/Mezbaan+Function+Hall/@15.8931039,74.5157569,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf614141e90c27:0x7811780ec8208d88!8m2!3d15.8931039!4d74.5183372!16s%2Fg%2F11bx09gpzw?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
-               target="_blank" rel="noopener noreferrer" class="qr-direct-link">
-              Launch GPS Route ➔
-            </a>
-          </div>
-
-          <!-- QR Card 2: Reception -->
-          <div class="qr-showcase-item">
-            <div class="qr-badge">RECEPTION LOCATION</div>
-            <h4 class="qr-venue-name">A S GADAG FUNCTION HALL</h4>
-            <div class="qr-image-wrapper">
-              <img src="extracted_assets/qr_reception.png" alt="Scan QR for A S GADAG Function Hall" class="venue-qr-img" />
-              <div class="qr-scan-lens"></div>
-            </div>
-            <p class="qr-hint">Scan with your smartphone camera</p>
-            <a href="https://www.google.com/maps/place/A+S+GADAG+FUNCTION+HALL/@15.801045,74.8373246,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf4fd3f83ebc99:0x64a5487223e0db80!8m2!3d15.801045!4d74.8399049!16s%2Fg%2F11rck2pxh_?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
-               target="_blank" rel="noopener noreferrer" class="qr-direct-link">
-              Launch GPS Route ➔
-            </a>
-          </div>
-
-        </div>
-      </section>
 
 
 
@@ -582,6 +584,6 @@
 
   </main>
 
-  <script src="script.js?v=2.2"></script>
+  <script src="script.js?v=2.3"></script>
 </body>
 </html>
