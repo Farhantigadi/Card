@@ -21,18 +21,7 @@
   <!-- Floating Ambient Particles Canvas -->
   <canvas id="particles-canvas" class="particles-bg"></canvas>
 
-  <!-- Audio Player & Floating Sound Controller -->
-  <div class="audio-control-container">
-    <button id="audio-toggle-btn" class="audio-badge" aria-label="Toggle serene ambient music" title="Toggle Nasheed / Ambient Audio">
-      <div class="sound-wave" id="sound-wave">
-        <span class="bar bar-1"></span>
-        <span class="bar bar-2"></span>
-        <span class="bar bar-3"></span>
-        <span class="bar bar-4"></span>
-      </div>
-      <span class="audio-label" id="audio-label">Music: Off</span>
-    </button>
-  </div>
+
 
   <!-- ==============================================
        STAGE 1: THE ROYAL PALACE ARCH DOOR REVEAL
@@ -517,54 +506,7 @@
       </section>
 
 
-      <!-- SEND DUA & BLESSINGS / SHARE CARD -->
-      <section class="section-card duas-card reveal-item" aria-label="Send Duas and Share">
-        <div class="ornament-corner top-left"></div>
-        <div class="ornament-corner top-right"></div>
-        <div class="ornament-corner bottom-left"></div>
-        <div class="ornament-corner bottom-right"></div>
 
-        <div class="section-heading-wrapper">
-          <span class="section-tag">PRAYERS & CELEBRATION</span>
-          <h2 class="section-title">Send Your Warm Duas</h2>
-          <p class="section-desc">Your heartfelt prayers and presence are the most precious blessings for the newly weds</p>
-        </div>
-
-        <div class="dua-arabic-box" dir="rtl" lang="ar">
-          بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
-        </div>
-        <p class="dua-meaning">
-          “May Allah bless you, shower His blessings upon you, and unite you both in goodness.”
-        </p>
-
-        <!-- Interactive Dua Greeting Generator -->
-        <div class="dua-form-wrapper">
-          <div class="input-group">
-            <input type="text" id="guest-name-input" placeholder="Your Name / Family Name" class="gold-input" />
-          </div>
-          <div class="input-group">
-            <textarea id="guest-dua-text" rows="2" placeholder="Write a personal dua or warm congratulation (optional)" class="gold-input"></textarea>
-          </div>
-          
-          <div class="dua-actions-row">
-            <button class="btn-action primary-btn" id="btn-send-whatsapp-dua">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.42 0-2.82-.37-4.06-1.08l-.29-.17-3.12.82.83-3.04-.19-.3a8.216 8.216 0 0 1-1.26-4.46c0-4.54 3.7-8.24 8.24-8.24m4.52 11.59c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.76-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3"/>
-              </svg>
-              <span>Share Dua on WhatsApp</span>
-            </button>
-
-            <button class="btn-action secondary-btn" id="btn-copy-card-link">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-              </svg>
-              <span id="copy-btn-text">Share Invitation Link</span>
-            </button>
-          </div>
-          <div id="copy-toast" class="copy-toast">Link copied to clipboard!</div>
-        </div>
-      </section>
 
 
       <!-- FOOTER -->
