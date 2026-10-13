@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Wedding Invitation | Mohammed Saman & Huma</title>
+  <meta name="description" content="You are cordially invited to celebrate the Nikah and Reception of Mohammed Saman & Huma on 23rd & 25th October 2026." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+
+  <!-- Google Fonts: Amiri (Arabic Calligraphy), Cormorant Garamond (Majestic Headings), Plus Jakarta Sans (Clean Modern Body), Cinzel Decorative (Monogram) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating Ambient Particles Canvas -->
+  <canvas id="particles-canvas" class="particles-bg"></canvas>
+
+  <!-- Audio Player & Floating Sound Controller -->
+  <div class="audio-control-container">
+    <button id="audio-toggle-btn" class="audio-badge" aria-label="Toggle serene ambient music" title="Toggle Nasheed / Ambient Audio">
+      <div class="sound-wave" id="sound-wave">
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
+        <span class="bar bar-3"></span>
+        <span class="bar bar-4"></span>
+      </div>
+      <span class="audio-label" id="audio-label">Music: Off</span>
+    </button>
+  </div>
+
+  <!-- ==============================================
+       STAGE 1: THE ROYAL PALACE ARCH DOOR REVEAL
+       ============================================== -->
+  <div id="door-stage" class="door-stage">
+    <div class="door-perspective-wrapper">
+      
+      <!-- Palace Outer Arch Frame -->
+      <div class="palace-arch-frame">
+        
+        <!-- Left Arched Door Leaf -->
+        <div class="door-leaf door-left" id="door-left">
+          <div class="door-inner-panel">
+            <div class="door-girih-pattern"></div>
+            <div class="door-handle left-handle">
+              <div class="handle-ring"></div>
+            </div>
+            <div class="door-studs"></div>
+          </div>
+        </div>
+
+        <!-- Right Arched Door Leaf -->
+        <div class="door-leaf door-right" id="door-right">
+          <div class="door-inner-panel">
+            <div class="door-girih-pattern"></div>
+            <div class="door-handle right-handle">
+              <div class="handle-ring"></div>
+            </div>
+            <div class="door-studs"></div>
+          </div>
+        </div>
+
+        <!-- Door Center Lock Ornament & Monogram (Over doors before open) -->
+        <div class="door-seal-container" id="door-seal">
+          
+          <!-- Bismillah Calligraphy (Top of Seal) -->
+          <div class="seal-bismillah">
+            <span class="arabic-calligraphy" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+            <p class="seal-bismillah-trans">In the name of Allah, the Most Gracious, the Most Merciful</p>
+          </div>
+
+          <!-- Animated Stroke Monogram Arch -->
+          <div class="seal-monogram-wrapper">
+            <svg class="monogram-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+              <!-- Mihrab Outer Arch -->
+              <path class="stroke-arch-outer" d="M 20,220 L 20,100 C 20,40 60,15 100,5 C 140,15 180,40 180,100 L 180,220 Z" />
+              <!-- Inner Arch Trim -->
+              <path class="stroke-arch-inner" d="M 30,215 L 30,105 C 30,52 65,28 100,18 C 135,28 170,52 170,105 L 170,215" />
+              <!-- Ornate Finial Tip -->
+              <circle cx="100" cy="5" r="4" class="arch-jewel" />
+              <!-- Geometric Accent -->
+              <polygon points="100,10 104,18 96,18" class="arch-point" />
+            </svg>
+            <div class="monogram-initials">
+              <span class="initial-letter letter-s">S</span>
+              <span class="initial-amp">&</span>
+              <span class="initial-letter letter-h">H</span>
+            </div>
+          </div>
+
+          <div class="seal-couple-names">
+            <span>Mohammed Saman</span>
+            <span class="and-symbol">&</span>
+            <span>Huma</span>
+          </div>
+
+          <!-- Open Button with Golden Glow Pulse -->
+          <button id="open-invite-btn" class="open-card-button" aria-label="Tap to open the wedding invitation">
+            <span class="btn-shine"></span>
+            <span class="btn-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </span>
+            <span class="btn-text">TAP TO OPEN INVITATION</span>
+          </button>
+
+          <p class="door-hint">✨ Touch to unfold the sacred celebration</p>
+
+        </div> <!-- /door-seal -->
+
+        <!-- Lanterns hanging from top arch -->
+        <div class="hanging-lantern lantern-left">
+          <div class="lantern-chain"></div>
+          <div class="lantern-body">
+            <div class="lantern-flame"></div>
+          </div>
+        </div>
+        <div class="hanging-lantern lantern-right">
+          <div class="lantern-chain"></div>
+          <div class="lantern-body">
+            <div class="lantern-flame"></div>
+          </div>
+        </div>
+
+      </div> <!-- /palace-arch-frame -->
+    </div> <!-- /door-perspective-wrapper -->
+  </div> <!-- /door-stage -->
+
+
+  <!-- ==============================================
+       STAGE 2: THE MAIN INVITATION CARD EXPERIENCE
+       ============================================== -->
+  <main id="main-content" class="main-content hidden-initially">
+
+    <div class="invitation-container">
+
+      <!-- TOP FLOATING BISMILLAH BANNER -->
+      <header class="section-card header-card reveal-item">
+        <div class="ornament-corner top-left"></div>
+        <div class="ornament-corner top-right"></div>
+        <div class="ornament-corner bottom-left"></div>
+        <div class="ornament-corner bottom-right"></div>
+
+        <div class="bismillah-block">
+          <div class="bismillah-calligraphy-large" dir="rtl" lang="ar">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </div>
+          <p class="bismillah-translation">
+            In The Name Of Allah, The Most Beneficent, The Most Merciful
+          </p>
+        </div>
+
+        <div class="gold-divider">
+          <span class="divider-line"></span>
+          <span class="divider-diamond">✦</span>
+          <span class="divider-star">۞</span>
+          <span class="divider-diamond">✦</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <!-- HERO ANNOUNCEMENT -->
+        <div class="hero-content">
+          <p class="islamic-greeting">
+            Assalamu Alaikum Wa Rahmatullahi Wa Barakatuh
+          </p>
+          <p class="invitation-lead">
+            With the divine blessings of Allah (SWT) and our elders,<br />
+            we cordially invite you to celebrate the wedding ceremony of
+          </p>
+
+          <div class="couple-title-container">
+            <div class="couple-glow-backdrop"></div>
+            <h1 class="groom-name">Mohammed Saman</h1>
+            <div class="wedding-ampersand">
+              <span class="amp-line"></span>
+              <span class="amp-symbol">&</span>
+              <span class="amp-line"></span>
+            </div>
+            <h1 class="bride-name">Huma</h1>
+          </div>
+
+          <p class="hero-subtitle">
+            Request the honour of your graceful presence & prayers<br />
+            as we embark on this sacred journey of companionship
+          </p>
+        </div>
+      </header>
+
+
+      <!-- QURANIC VERSE SECTION (SURAH AR-RUM 30:21) -->
+      <section class="section-card quran-card reveal-item" aria-label="Quranic Ayah">
+        <div class="ornament-corner top-left"></div>
+        <div class="ornament-corner top-right"></div>
+        <div class="ornament-corner bottom-left"></div>
+        <div class="ornament-corner bottom-right"></div>
+
+        <div class="mihrab-crest">
+          <svg viewBox="0 0 100 40" class="mihrab-crest-svg">
+            <path d="M 10 38 Q 30 38 45 20 Q 50 10 50 4 Q 50 10 55 20 Q 70 38 90 38" fill="none" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          <span class="crest-label">Holy Quran</span>
+        </div>
+
+        <blockquote class="quran-quote">
+          <div class="quran-arabic" dir="rtl" lang="ar">
+            وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+          </div>
+          <div class="gold-divider thin">
+            <span class="divider-line"></span>
+            <span class="divider-star">۞</span>
+            <span class="divider-line"></span>
+          </div>
+          <cite class="quran-translation">
+            “And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them; and He has put love and mercy between your hearts. Indeed, in that are signs for a people who reflect.”
+            <span class="quran-surah">— Surah Ar-Rum [30:21] —</span>
+          </cite>
+        </blockquote>
+      </section>
+
+
+      <!-- LIVE COUNTDOWN TIMER -->
+      <section class="section-card countdown-card reveal-item" aria-label="Countdown to the Nikah">
+        <div class="ornament-corner top-left"></div>
+        <div class="ornament-corner top-right"></div>
+        <div class="ornament-corner bottom-left"></div>
+        <div class="ornament-corner bottom-right"></div>
+
+        <div class="section-heading-wrapper">
+          <span class="section-tag">COUNTDOWN TO THE AUSPICIOUS MOMENT</span>
+          <h2 class="section-title">The Sacred Nikah Awaits</h2>
+          <p class="section-desc">Counting down every blessed moment until the Ijab & Qubool InshaAllah</p>
+        </div>
+
+        <div class="countdown-grid" id="countdown-timer">
+          <div class="countdown-box">
+            <div class="countdown-dial">
+              <span class="number" id="cd-days">00</span>
+            </div>
+            <span class="unit-label">DAYS</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-box">
+            <div class="countdown-dial">
+              <span class="number" id="cd-hours">00</span>
+            </div>
+            <span class="unit-label">HOURS</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-box">
+            <div class="countdown-dial">
+              <span class="number" id="cd-minutes">00</span>
+            </div>
+            <span class="unit-label">MINUTES</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-box">
+            <div class="countdown-dial">
+              <span class="number" id="cd-seconds">00</span>
+            </div>
+            <span class="unit-label">SECONDS</span>
+          </div>
+        </div>
+
+        <div class="nikah-date-badge">
+          <span class="badge-icon">📅</span>
+          <span>Friday, 23rd October 2026 • 12 Jumādā al-Ūlā 1448 AH</span>
+        </div>
+      </section>
+
+
+      <!-- EVENTS TIMELINE SECTION -->
+      <section class="section-card timeline-card reveal-item" id="events-section" aria-label="Wedding Events Schedule">
+        <div class="ornament-corner top-left"></div>
+        <div class="ornament-corner top-right"></div>
+        <div class="ornament-corner bottom-left"></div>
+        <div class="ornament-corner bottom-right"></div>
+
+        <div class="section-heading-wrapper">
+          <span class="section-tag">PROGRAM SCHEDULE</span>
+          <h2 class="section-title">The Blessed Ceremonies</h2>
+          <p class="section-desc">We request you to grace each occasion with your presence and prayers</p>
+        </div>
+
+        <div class="events-container">
+          
+          <!-- EVENT 1: NIKAH -->
+          <article class="event-item-card primary-event">
+            <div class="event-header">
+              <div class="event-badge">CEREMONY 01</div>
+              <span class="event-hijri">12 Jumādā al-Ūlā 1448 AH</span>
+            </div>
+
+            <div class="event-main">
+              <h3 class="event-name">The Sacred Nikah</h3>
+              <p class="event-arabic-title" dir="rtl" lang="ar">عقد النكاح المبارك</p>
+
+              <div class="event-meta-grid">
+                <div class="meta-item">
+                  <div class="meta-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                  </div>
+                  <div class="meta-text">
+                    <span class="meta-label">DATE</span>
+                    <span class="meta-val">Friday, 23rd October 2026</span>
+                  </div>
+                </div>
+
+                <div class="meta-item">
+                  <div class="meta-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                  </div>
+                  <div class="meta-text">
+                    <span class="meta-label">TIME</span>
+                    <span class="meta-val">From 8:00 PM Onwards</span>
+                  </div>
+                </div>
+
+                <div class="meta-item venue-meta">
+                  <div class="meta-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <div class="meta-text">
+                    <span class="meta-label">VENUE</span>
+                    <span class="meta-val venue-highlight">Mezbaan Function Hall</span>
+                    <span class="meta-sub">Belagavi, Karnataka</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons for Event 1 -->
+              <div class="event-actions">
+                <a href="https://www.google.com/maps/place/Mezbaan+Function+Hall/@15.8931039,74.5157569,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf614141e90c27:0x7811780ec8208d88!8m2!3d15.8931039!4d74.5183372!16s%2Fg%2F11bx09gpzw?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn-action primary-btn"
+                   id="btn-nikah-map">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
+                  <span>Open in Google Maps</span>
+                </a>
+
+                <button class="btn-action secondary-btn" 
+                        onclick="addToCalendar('nikah')"
+                        id="btn-nikah-cal"
+                        aria-label="Add Nikah ceremony to calendar">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                    <line x1="12" y1="14" x2="12" y2="18"/>
+                    <line x1="10" y1="16" x2="14" y2="16"/>
+                  </svg>
+                  <span>Add to Calendar</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+
+          <!-- EVENT 2: RECEPTION (WALIMA) -->
+          <article class="event-item-card secondary-event">
+            <div class="event-header">
+              <div class="event-badge">CEREMONY 02</div>
+              <span class="event-hijri">14 Jumādā al-Ūlā 1448 AH</span>
+            </div>
+
+            <div class="event-main">
+              <h3 class="event-name">The Grand Reception (Walima)</h3>
+              <p class="event-arabic-title" dir="rtl" lang="ar">حفل الاستقبال والوليمة</p>
+
+              <div class="event-meta-grid">
+                <div class="meta-item">
+                  <div class="meta-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                  </div>
+                  <div class="meta-text">
+                    <span class="meta-label">DATE</span>
+                    <span class="meta-val">Sunday, 25th October 2026</span>
+                  </div>
+                </div>
+
+                <div class="meta-item">
+                  <div class="meta-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                  </div>
+                  <div class="meta-text">
+                    <span class="meta-label">TIME</span>
+                    <span class="meta-val">From 12:45 PM Onwards</span>
+                  </div>
+                </div>
+
+                <div class="meta-item venue-meta">
+                  <div class="meta-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <div class="meta-text">
+                    <span class="meta-label">VENUE</span>
+                    <span class="meta-val venue-highlight">A S GADAG FUNCTION HALL</span>
+                    <span class="meta-sub">Bailhongal / Belagavi Region</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons for Event 2 -->
+              <div class="event-actions">
+                <a href="https://www.google.com/maps/place/A+S+GADAG+FUNCTION+HALL/@15.801045,74.8373246,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf4fd3f83ebc99:0x64a5487223e0db80!8m2!3d15.801045!4d74.8399049!16s%2Fg%2F11rck2pxh_?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn-action primary-btn"
+                   id="btn-reception-map">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
+                  <span>Open in Google Maps</span>
+                </a>
+
+                <button class="btn-action secondary-btn" 
+                        onclick="addToCalendar('reception')"
+                        id="btn-reception-cal"
+                        aria-label="Add Reception ceremony to calendar">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                    <line x1="12" y1="14" x2="12" y2="18"/>
+                    <line x1="10" y1="16" x2="14" y2="16"/>
+                  </svg>
+                  <span>Add to Calendar</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div> <!-- /events-container -->
+      </section>
+
+
+      <!-- VENUE SHOWCASE & LOCATION QR CODES -->
+      <section class="section-card venues-showcase-card reveal-item" aria-label="Venues and Directions">
+        <div class="ornament-corner top-left"></div>
+        <div class="ornament-corner top-right"></div>
+        <div class="ornament-corner bottom-left"></div>
+        <div class="ornament-corner bottom-right"></div>
+
+        <div class="section-heading-wrapper">
+          <span class="section-tag">EASY NAVIGATION</span>
+          <h2 class="section-title">Venues & Scan to Navigate</h2>
+          <p class="section-desc">Tap to view live routes or scan the QR code directly from another screen</p>
+        </div>
+
+        <div class="qr-cards-grid">
+          
+          <!-- QR Card 1: Nikah -->
+          <div class="qr-showcase-item">
+            <div class="qr-badge">NIKAH LOCATION</div>
+            <h4 class="qr-venue-name">Mezbaan Function Hall</h4>
+            <div class="qr-image-wrapper">
+              <img src="extracted_assets/qr_nikah.png" alt="Scan QR for Mezbaan Function Hall" class="venue-qr-img" />
+              <div class="qr-scan-lens"></div>
+            </div>
+            <p class="qr-hint">Scan with your smartphone camera</p>
+            <a href="https://www.google.com/maps/place/Mezbaan+Function+Hall/@15.8931039,74.5157569,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf614141e90c27:0x7811780ec8208d88!8m2!3d15.8931039!4d74.5183372!16s%2Fg%2F11bx09gpzw?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" rel="noopener noreferrer" class="qr-direct-link">
+              Launch GPS Route ➔
+            </a>
+          </div>
+
+          <!-- QR Card 2: Reception -->
+          <div class="qr-showcase-item">
+            <div class="qr-badge">RECEPTION LOCATION</div>
+            <h4 class="qr-venue-name">A S GADAG FUNCTION HALL</h4>
+            <div class="qr-image-wrapper">
+              <img src="extracted_assets/qr_reception.png" alt="Scan QR for A S GADAG Function Hall" class="venue-qr-img" />
+              <div class="qr-scan-lens"></div>
+            </div>
+            <p class="qr-hint">Scan with your smartphone camera</p>
+            <a href="https://www.google.com/maps/place/A+S+GADAG+FUNCTION+HALL/@15.801045,74.8373246,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf4fd3f83ebc99:0x64a5487223e0db80!8m2!3d15.801045!4d74.8399049!16s%2Fg%2F11rck2pxh_?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" rel="noopener noreferrer" class="qr-direct-link">
+              Launch GPS Route ➔
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- SEND DUA & BLESSINGS / SHARE CARD -->
+      <section class="section-card duas-card reveal-item" aria-label="Send Duas and Share">
+        <div class="ornament-corner top-left"></div>
+        <div class="ornament-corner top-right"></div>
+        <div class="ornament-corner bottom-left"></div>
+        <div class="ornament-corner bottom-right"></div>
+
+        <div class="section-heading-wrapper">
+          <span class="section-tag">PRAYERS & CELEBRATION</span>
+          <h2 class="section-title">Send Your Warm Duas</h2>
+          <p class="section-desc">Your heartfelt prayers and presence are the most precious blessings for the newly weds</p>
+        </div>
+
+        <div class="dua-arabic-box" dir="rtl" lang="ar">
+          بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
+        </div>
+        <p class="dua-meaning">
+          “May Allah bless you, shower His blessings upon you, and unite you both in goodness.”
+        </p>
+
+        <!-- Interactive Dua Greeting Generator -->
+        <div class="dua-form-wrapper">
+          <div class="input-group">
+            <input type="text" id="guest-name-input" placeholder="Your Name / Family Name" class="gold-input" />
+          </div>
+          <div class="input-group">
+            <textarea id="guest-dua-text" rows="2" placeholder="Write a personal dua or warm congratulation (optional)" class="gold-input"></textarea>
+          </div>
+          
+          <div class="dua-actions-row">
+            <button class="btn-action primary-btn" id="btn-send-whatsapp-dua">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.42 0-2.82-.37-4.06-1.08l-.29-.17-3.12.82.83-3.04-.19-.3a8.216 8.216 0 0 1-1.26-4.46c0-4.54 3.7-8.24 8.24-8.24m4.52 11.59c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.76-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3"/>
+              </svg>
+              <span>Share Dua on WhatsApp</span>
+            </button>
+
+            <button class="btn-action secondary-btn" id="btn-copy-card-link">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span id="copy-btn-text">Share Invitation Link</span>
+            </button>
+          </div>
+          <div id="copy-toast" class="copy-toast">Link copied to clipboard!</div>
+        </div>
+      </section>
+
+
+      <!-- FOOTER -->
+      <footer class="section-card footer-card reveal-item">
+        <div class="footer-crest">
+          <span class="footer-initials">S & H</span>
+        </div>
+        <p class="footer-message">
+          Your presence and prayers are the greatest gift you could bestow upon us.
+        </p>
+        <div class="footer-arabic-thanks" dir="rtl" lang="ar">
+          جَزَاكُمُ اللَّهُ خَيْرًا
+        </div>
+        <p class="footer-trans-thanks">Jazakumullahu Khairan</p>
+        
+        <div class="footer-names">
+          With Love & Regard,<br />
+          <strong>Mohammed Saman & Huma</strong><br />
+          and Families
+        </div>
+      </footer>
+
+    </div> <!-- /invitation-container -->
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
