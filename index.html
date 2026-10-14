@@ -118,14 +118,16 @@
         <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
         <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
         <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50"/>
-        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
-        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
-        <circle class="flora-bloom" cx="95" cy="50" r="6"/>
-        <circle class="flora-petal" cx="100" cy="10" r="5"/>
-        <circle class="flora-petal" cx="75" cy="30" r="4"/>
-        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
-        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
-        <circle class="flora-leaf" cx="55" cy="80" r="3.5"/>
+        <!-- blooms as petals -->
+        <ellipse class="flora-bloom" cx="100" cy="10" rx="9" ry="6" transform="rotate(-30 100 10)"/>
+        <ellipse class="flora-bloom" cx="75" cy="30" rx="7" ry="5" transform="rotate(-20 75 30)"/>
+        <ellipse class="flora-bloom" cx="95" cy="50" rx="6" ry="4" transform="rotate(-10 95 50)"/>
+        <ellipse class="flora-petal" cx="100" cy="10" rx="5" ry="3" transform="rotate(50 100 10)"/>
+        <ellipse class="flora-petal" cx="75" cy="30" rx="4" ry="2.5" transform="rotate(40 75 30)"/>
+        <!-- leaves as pointed ovals -->
+        <ellipse class="flora-leaf" cx="60" cy="50" rx="5" ry="2.5" transform="rotate(-40 60 50)"/>
+        <ellipse class="flora-leaf" cx="45" cy="65" rx="4" ry="2" transform="rotate(-35 45 65)"/>
+        <ellipse class="flora-leaf" cx="55" cy="80" rx="3.5" ry="1.8" transform="rotate(-25 55 80)"/>
       </svg>
     </div>
     <div class="door-corner-flora door-flora-tr" aria-hidden="true">
@@ -133,34 +135,14 @@
         <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
         <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
         <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50"/>
-        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
-        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
-        <circle class="flora-bloom" cx="95" cy="50" r="6"/>
-        <circle class="flora-petal" cx="100" cy="10" r="5"/>
-        <circle class="flora-petal" cx="75" cy="30" r="4"/>
-        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
-        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
-        <circle class="flora-leaf" cx="55" cy="80" r="3.5"/>
-      </svg>
-    </div>
-    <div class="door-corner-flora door-flora-bl" aria-hidden="true">
-      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg" style="transform:scaleY(-1)">
-        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
-        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
-        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
-        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
-        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
-        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
-      </svg>
-    </div>
-    <div class="door-corner-flora door-flora-br" aria-hidden="true">
-      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg" style="transform:scale(-1,-1)">
-        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
-        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
-        <circle class="flora-bloom" cx="100" cy="10" r="9"/>
-        <circle class="flora-bloom" cx="75" cy="30" r="7"/>
-        <circle class="flora-leaf" cx="60" cy="50" r="5"/>
-        <circle class="flora-leaf" cx="45" cy="65" r="4"/>
+        <ellipse class="flora-bloom" cx="100" cy="10" rx="9" ry="6" transform="rotate(-30 100 10)"/>
+        <ellipse class="flora-bloom" cx="75" cy="30" rx="7" ry="5" transform="rotate(-20 75 30)"/>
+        <ellipse class="flora-bloom" cx="95" cy="50" rx="6" ry="4" transform="rotate(-10 95 50)"/>
+        <ellipse class="flora-petal" cx="100" cy="10" rx="5" ry="3" transform="rotate(50 100 10)"/>
+        <ellipse class="flora-petal" cx="75" cy="30" rx="4" ry="2.5" transform="rotate(40 75 30)"/>
+        <ellipse class="flora-leaf" cx="60" cy="50" rx="5" ry="2.5" transform="rotate(-40 60 50)"/>
+        <ellipse class="flora-leaf" cx="45" cy="65" rx="4" ry="2" transform="rotate(-35 45 65)"/>
+        <ellipse class="flora-leaf" cx="55" cy="80" rx="3.5" ry="1.8" transform="rotate(-25 55 80)"/>
       </svg>
     </div>
     <div class="door-perspective-wrapper">
@@ -206,10 +188,6 @@
               <path class="stroke-arch-outer" d="M 20,220 L 20,100 C 20,40 60,15 100,5 C 140,15 180,40 180,100 L 180,220 Z" />
               <!-- Inner Arch Trim -->
               <path class="stroke-arch-inner" d="M 30,215 L 30,105 C 30,52 65,28 100,18 C 135,28 170,52 170,105 L 170,215" />
-              <!-- Ornate Finial Tip -->
-              <circle cx="100" cy="5" r="4" class="arch-jewel" />
-              <!-- Geometric Accent -->
-              <polygon points="100,10 104,18 96,18" class="arch-point" />
             </svg>
             <div class="monogram-initials">
               <span class="initial-letter letter-s">S</span>
@@ -302,13 +280,17 @@
 
           <div class="couple-title-container">
             <div class="couple-glow-backdrop"></div>
-            <h1 class="groom-name">Mohammed Saman</h1>
+            <h1 class="groom-name">Mohammed Saman
+              <svg class="name-underline" viewBox="0 0 300 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2,9 Q50,3 100,8 Q160,14 220,7 Q265,2 298,8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </h1>
             <div class="wedding-ampersand">
               <span class="amp-line"></span>
               <span class="amp-symbol">&</span>
               <span class="amp-line"></span>
             </div>
-            <h1 class="bride-name">Huma</h1>
+            <h1 class="bride-name">Huma
+              <svg class="name-underline" viewBox="0 0 140 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2,9 Q30,3 60,8 Q95,14 120,6 Q132,2 138,8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </h1>
           </div>
 
           <p class="hero-subtitle">
