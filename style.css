@@ -575,34 +575,6 @@ body {
 
 /* Antique Door Handles */
 .door-handle {
-  position: absolute;
-  top: 55%;
-  width: 32px;
-  height: 32px;
-}
-
-.left-handle {
-  right: 14px;
-}
-
-.right-handle {
-  left: 14px;
-}
-
-.handle-ring {
-  width: 24px;
-  height: 24px;
-  border: 3px solid var(--gold-primary);
-  border-radius: 50%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 240, 180, 0.4);
-}
-
-[data-theme="light"] .handle-ring {
-  border-color: var(--rose);
-  box-shadow: 0 3px 8px rgba(107, 66, 57, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.5);
-}
-
-[data-theme="light"] .door-handle {
   display: none;
 }
 
