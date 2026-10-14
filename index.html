@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <title>Wedding Invitation | Mohammed Saman & Huma</title>
-  <meta name="description" content="You are cordially invited to celebrate the Nikah and Reception of Mohammed Saman & Huma on 23rd & 25th October 2026." />
+  <meta name="description"
+    content="You are cordially invited to celebrate the Nikah and Reception of Mohammed Saman & Huma on 23rd & 25th October 2026." />
   <meta name="theme-color" content="#03140e" id="theme-color-meta" />
-  
+
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
 
   <!-- Preload hero floral asset for Rose Light theme -->
   <link rel="preload" href="assets/flowers/peony_cluster_tl.webp" as="image" type="image/webp" />
@@ -16,11 +19,13 @@
   <!-- Google Fonts: Amiri (Arabic), Cormorant Garamond & Cinzel (Royal Dark), Allura / Great Vibes / Playfair Display / Jost (Rose Light) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Allura&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
   <!-- Inline Script to Set Initial Theme Before Paint (Zero FOUC) -->
   <script>
-    (function() {
+    (function () {
       try {
         var savedTheme = localStorage.getItem('wedding_theme');
         if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -38,10 +43,10 @@
 
   <!-- DEV: Hot-reload CSS/JS on file change (no full page reload) -->
   <script>
-    (function() {
+    (function () {
       const files = [
         { type: 'css', href: 'style.css', el: null, etag: '' },
-        { type: 'js',  href: 'script.js', el: null, etag: '' }
+        { type: 'js', href: 'script.js', el: null, etag: '' }
       ];
       files[0].el = document.querySelector('link[href^="style.css"]');
 
@@ -63,13 +68,14 @@
             }
             f.etag = tag;
           }
-        } catch(e) {}
+        } catch (e) { }
       }
 
       setInterval(() => files.forEach(checkFile), 1000);
     })();
   </script>
 </head>
+
 <body>
 
   <!-- Floating Ambient Particles / Falling Petals Canvas -->
@@ -77,19 +83,25 @@
 
   <!-- Theme Mode Toggle (Single Icon) -->
   <aside class="theme-toggle-container" aria-label="Theme switcher">
-    <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="window.toggleTheme(event)" aria-label="Switch theme" aria-pressed="false" title="Toggle Theme">
+    <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="window.toggleTheme(event)" aria-label="Switch theme"
+      aria-pressed="false" title="Toggle Theme">
       <span class="toggle-icon-wrap" aria-hidden="true">
         <!-- Moon (dark mode active) -->
         <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
         <!-- Sun (light mode active) -->
-        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <circle cx="12" cy="12" r="4.5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
         </svg>
       </span>
     </button>
@@ -114,42 +126,44 @@
 
     <!-- Corner floral sprays (CSS-drawn, theme-aware) -->
     <div class="door-corner-flora door-flora-tl" aria-hidden="true">
-      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg">
-        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
-        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
-        <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50"/>
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="flora-svg">
+        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10" />
+        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30" />
+        <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50" />
         <!-- blooms as petals -->
-        <ellipse class="flora-bloom" cx="100" cy="10" rx="9" ry="6" transform="rotate(-30 100 10)"/>
-        <ellipse class="flora-bloom" cx="75" cy="30" rx="7" ry="5" transform="rotate(-20 75 30)"/>
-        <ellipse class="flora-bloom" cx="95" cy="50" rx="6" ry="4" transform="rotate(-10 95 50)"/>
-        <ellipse class="flora-petal" cx="100" cy="10" rx="5" ry="3" transform="rotate(50 100 10)"/>
-        <ellipse class="flora-petal" cx="75" cy="30" rx="4" ry="2.5" transform="rotate(40 75 30)"/>
+        <ellipse class="flora-bloom" cx="100" cy="10" rx="9" ry="6" transform="rotate(-30 100 10)" />
+        <ellipse class="flora-bloom" cx="75" cy="30" rx="7" ry="5" transform="rotate(-20 75 30)" />
+        <ellipse class="flora-bloom" cx="95" cy="50" rx="6" ry="4" transform="rotate(-10 95 50)" />
+        <ellipse class="flora-petal" cx="100" cy="10" rx="5" ry="3" transform="rotate(50 100 10)" />
+        <ellipse class="flora-petal" cx="75" cy="30" rx="4" ry="2.5" transform="rotate(40 75 30)" />
         <!-- leaves as pointed ovals -->
-        <ellipse class="flora-leaf" cx="60" cy="50" rx="5" ry="2.5" transform="rotate(-40 60 50)"/>
-        <ellipse class="flora-leaf" cx="45" cy="65" rx="4" ry="2" transform="rotate(-35 45 65)"/>
-        <ellipse class="flora-leaf" cx="55" cy="80" rx="3.5" ry="1.8" transform="rotate(-25 55 80)"/>
+        <ellipse class="flora-leaf" cx="60" cy="50" rx="5" ry="2.5" transform="rotate(-40 60 50)" />
+        <ellipse class="flora-leaf" cx="45" cy="65" rx="4" ry="2" transform="rotate(-35 45 65)" />
+        <ellipse class="flora-leaf" cx="55" cy="80" rx="3.5" ry="1.8" transform="rotate(-25 55 80)" />
       </svg>
     </div>
     <div class="door-corner-flora door-flora-tr" aria-hidden="true">
-      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" class="flora-svg" style="transform:scaleX(-1)">
-        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10"/>
-        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30"/>
-        <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50"/>
-        <ellipse class="flora-bloom" cx="100" cy="10" rx="9" ry="6" transform="rotate(-30 100 10)"/>
-        <ellipse class="flora-bloom" cx="75" cy="30" rx="7" ry="5" transform="rotate(-20 75 30)"/>
-        <ellipse class="flora-bloom" cx="95" cy="50" rx="6" ry="4" transform="rotate(-10 95 50)"/>
-        <ellipse class="flora-petal" cx="100" cy="10" rx="5" ry="3" transform="rotate(50 100 10)"/>
-        <ellipse class="flora-petal" cx="75" cy="30" rx="4" ry="2.5" transform="rotate(40 75 30)"/>
-        <ellipse class="flora-leaf" cx="60" cy="50" rx="5" ry="2.5" transform="rotate(-40 60 50)"/>
-        <ellipse class="flora-leaf" cx="45" cy="65" rx="4" ry="2" transform="rotate(-35 45 65)"/>
-        <ellipse class="flora-leaf" cx="55" cy="80" rx="3.5" ry="1.8" transform="rotate(-25 55 80)"/>
+      <svg viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="flora-svg" style="transform:scaleX(-1)">
+        <path class="flora-stem" d="M10,110 Q30,70 60,50 Q80,35 100,10" />
+        <path class="flora-stem" d="M10,110 Q20,80 45,65 Q65,52 75,30" />
+        <path class="flora-stem" d="M10,110 Q35,90 55,80 Q80,68 95,50" />
+        <ellipse class="flora-bloom" cx="100" cy="10" rx="9" ry="6" transform="rotate(-30 100 10)" />
+        <ellipse class="flora-bloom" cx="75" cy="30" rx="7" ry="5" transform="rotate(-20 75 30)" />
+        <ellipse class="flora-bloom" cx="95" cy="50" rx="6" ry="4" transform="rotate(-10 95 50)" />
+        <ellipse class="flora-petal" cx="100" cy="10" rx="5" ry="3" transform="rotate(50 100 10)" />
+        <ellipse class="flora-petal" cx="75" cy="30" rx="4" ry="2.5" transform="rotate(40 75 30)" />
+        <ellipse class="flora-leaf" cx="60" cy="50" rx="5" ry="2.5" transform="rotate(-40 60 50)" />
+        <ellipse class="flora-leaf" cx="45" cy="65" rx="4" ry="2" transform="rotate(-35 45 65)" />
+        <ellipse class="flora-leaf" cx="55" cy="80" rx="3.5" ry="1.8" transform="rotate(-25 55 80)" />
       </svg>
     </div>
     <div class="door-perspective-wrapper">
-      
+
       <!-- Palace Outer Arch Frame -->
       <div class="palace-arch-frame">
-        
+
         <!-- Left Arched Door Leaf -->
         <div class="door-leaf door-left" id="door-left">
           <div class="door-inner-panel">
@@ -174,7 +188,7 @@
 
         <!-- Door Center Lock Ornament & Monogram (Over doors before open) -->
         <div class="door-seal-container" id="door-seal">
-          
+
           <!-- Bismillah Calligraphy (Top of Seal) -->
           <div class="seal-bismillah">
             <span class="arabic-calligraphy" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
@@ -185,9 +199,11 @@
           <div class="seal-monogram-wrapper">
             <svg class="monogram-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
               <!-- Mihrab Outer Arch -->
-              <path class="stroke-arch-outer" d="M 20,220 L 20,100 C 20,40 60,15 100,5 C 140,15 180,40 180,100 L 180,220 Z" />
+              <path class="stroke-arch-outer"
+                d="M 20,220 L 20,100 C 20,40 60,15 100,5 C 140,15 180,40 180,100 L 180,220 Z" />
               <!-- Inner Arch Trim -->
-              <path class="stroke-arch-inner" d="M 30,215 L 30,105 C 30,52 65,28 100,18 C 135,28 170,52 170,105 L 170,215 Z" />
+              <path class="stroke-arch-inner"
+                d="M 30,215 L 30,105 C 30,52 65,28 100,18 C 135,28 170,52 170,105 L 170,215 Z" />
             </svg>
             <div class="monogram-initials">
               <span class="initial-letter letter-s">S</span>
@@ -203,7 +219,8 @@
           </div>
 
           <!-- Open Button with Golden Glow Pulse -->
-          <button id="open-invite-btn" class="open-card-button" onclick="window.openDoors(event)" aria-label="Tap to open the wedding invitation">
+          <button id="open-invite-btn" class="open-card-button" onclick="window.openDoors(event)"
+            aria-label="Tap to open the wedding invitation">
             <span class="btn-shine"></span>
             <span class="btn-text">TAP TO OPEN INVITATION</span>
           </button>
@@ -281,7 +298,11 @@
           <div class="couple-title-container">
             <div class="couple-glow-backdrop"></div>
             <h1 class="groom-name">Mohammed Saman
-              <svg class="name-underline" viewBox="0 0 300 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2,9 Q50,3 100,8 Q160,14 220,7 Q265,2 298,8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <svg class="name-underline" viewBox="0 0 300 12" preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M2,9 Q50,3 100,8 Q160,14 220,7 Q265,2 298,8" fill="none" stroke="currentColor"
+                  stroke-width="1.5" stroke-linecap="round" />
+              </svg>
             </h1>
             <div class="wedding-ampersand">
               <span class="amp-line"></span>
@@ -289,7 +310,11 @@
               <span class="amp-line"></span>
             </div>
             <h1 class="bride-name">Huma
-              <svg class="name-underline" viewBox="0 0 140 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2,9 Q30,3 60,8 Q95,14 120,6 Q132,2 138,8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <svg class="name-underline" viewBox="0 0 140 12" preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M2,9 Q30,3 60,8 Q95,14 120,6 Q132,2 138,8" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" />
+              </svg>
             </h1>
           </div>
 
@@ -314,7 +339,8 @@
 
         <blockquote class="quran-quote">
           <div class="quran-arabic" dir="rtl" lang="ar">
-            وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+            وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم
+            مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
           </div>
           <div class="gold-divider thin">
             <span class="divider-line"></span>
@@ -322,7 +348,9 @@
             <span class="divider-line"></span>
           </div>
           <cite class="quran-translation">
-            “And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them; and He has put love and mercy between your hearts. Indeed, in that are signs for a people who reflect.”
+            “And among His signs is that He created for you mates from among yourselves, that you may dwell in
+            tranquility with them; and He has put love and mercy between your hearts. Indeed, in that are signs for a
+            people who reflect.”
             <span class="quran-surah">— Surah Ar-Rum [30:21] —</span>
           </cite>
         </blockquote>
@@ -393,7 +421,7 @@
         </div>
 
         <div class="events-container">
-          
+
           <!-- EVENT 1: NIKAH -->
           <article class="event-item-card primary-event">
             <div class="event-header">
@@ -408,11 +436,12 @@
               <div class="event-meta-grid">
                 <div class="meta-item">
                   <div class="meta-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                      <line x1="16" y1="2" x2="16" y2="6"/>
-                      <line x1="8" y1="2" x2="8" y2="6"/>
-                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
                     </svg>
                   </div>
                   <div class="meta-text">
@@ -423,9 +452,10 @@
 
                 <div class="meta-item">
                   <div class="meta-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <circle cx="12" cy="12" r="10"/>
-                      <polyline points="12 6 12 12 16 14"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
                     </svg>
                   </div>
                   <div class="meta-text">
@@ -436,9 +466,10 @@
 
                 <div class="meta-item venue-meta">
                   <div class="meta-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
                     </svg>
                   </div>
                   <div class="meta-text">
@@ -451,29 +482,14 @@
 
               <!-- Action Buttons for Event 1 -->
               <div class="event-actions">
-                <a href="https://www.google.com/maps/place/Mezbaan+Function+Hall/@15.8931039,74.5157569,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf614141e90c27:0x7811780ec8208d88!8m2!3d15.8931039!4d74.5183372!16s%2Fg%2F11bx09gpzw?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="btn-action primary-btn"
-                   id="btn-nikah-map">
-                 
+                <a href="https://www.google.com/maps/place/Mezbaan+Function+Hall/@15.8931039,74.5157569,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf614141e90c27:0x7811780ec8208d88!8m2!3d15.8931039!4d74.5183372!16s%2Fg%2F11bx09gpzw?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank" rel="noopener noreferrer" class="btn-action primary-btn" id="btn-nikah-map">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
                   <span>Open in Google Maps</span>
                 </a>
-
-                <button class="btn-action secondary-btn" 
-                        onclick="addToCalendar('nikah')"
-                        id="btn-nikah-cal"
-                        aria-label="Add Nikah ceremony to calendar">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                    <line x1="12" y1="14" x2="12" y2="18"/>
-                    <line x1="10" y1="16" x2="14" y2="16"/>
-                  </svg>
-                  <span>Add to Calendar</span>
-                </button>
               </div>
             </div>
           </article>
@@ -493,11 +509,12 @@
               <div class="event-meta-grid">
                 <div class="meta-item">
                   <div class="meta-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                      <line x1="16" y1="2" x2="16" y2="6"/>
-                      <line x1="8" y1="2" x2="8" y2="6"/>
-                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
                     </svg>
                   </div>
                   <div class="meta-text">
@@ -508,9 +525,10 @@
 
                 <div class="meta-item">
                   <div class="meta-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <circle cx="12" cy="12" r="10"/>
-                      <polyline points="12 6 12 12 16 14"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
                     </svg>
                   </div>
                   <div class="meta-text">
@@ -521,9 +539,10 @@
 
                 <div class="meta-item venue-meta">
                   <div class="meta-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
                     </svg>
                   </div>
                   <div class="meta-text">
@@ -536,29 +555,14 @@
 
               <!-- Action Buttons for Event 2 -->
               <div class="event-actions">
-                <a href="https://www.google.com/maps/place/A+S+GADAG+FUNCTION+HALL/@15.801045,74.8373246,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf4fd3f83ebc99:0x64a5487223e0db80!8m2!3d15.801045!4d74.8399049!16s%2Fg%2F11rck2pxh_?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="btn-action primary-btn"
-                   id="btn-reception-map">
-                  
+                <a href="https://www.google.com/maps/place/A+S+GADAG+FUNCTION+HALL/@15.801045,74.8373246,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf4fd3f83ebc99:0x64a5487223e0db80!8m2!3d15.801045!4d74.8399049!16s%2Fg%2F11rck2pxh_?authuser=0&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank" rel="noopener noreferrer" class="btn-action primary-btn" id="btn-reception-map">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
                   <span>Open in Google Maps</span>
                 </a>
-
-                <button class="btn-action secondary-btn" 
-                        onclick="addToCalendar('reception')"
-                        id="btn-reception-cal"
-                        aria-label="Add Reception ceremony to calendar">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                    <line x1="12" y1="14" x2="12" y2="18"/>
-                    <line x1="10" y1="16" x2="14" y2="16"/>
-                  </svg>
-                  <span>Add to Calendar</span>
-                </button>
               </div>
             </div>
           </article>
@@ -585,7 +589,7 @@
           جَزَاكُمُ اللَّهُ خَيْرًا
         </div>
         <p class="footer-trans-thanks">Jazakumullahu Khairan</p>
-        
+
         <div class="footer-names">
           With Love & Regard,<br />
           <strong>Mohammed Saman & Huma</strong><br />
@@ -599,4 +603,5 @@
 
   <script src="script.js?v=2.3"></script>
 </body>
+
 </html>

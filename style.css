@@ -1903,11 +1903,15 @@ body {
   font-family: var(--font-body-jost);
 }
 
-/* Action Buttons (Maps & Calendar) */
+/* Action Buttons */
 .event-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
+}
+
+.event-actions .btn-action {
+  width: 100%;
 }
 
 .btn-action {
