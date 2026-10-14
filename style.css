@@ -639,6 +639,8 @@ body {
 }
 
 [data-theme="light"] .lantern-chain {
+  width: 1.5px;
+  height: 60px;
   background: linear-gradient(to bottom, #B9808A, #6B4239);
 }
 
@@ -656,18 +658,12 @@ body {
 }
 
 [data-theme="light"] .lantern-body {
-  width: 22px;
-  height: 38px;
-  background: linear-gradient(180deg, #F5EDE8 0%, #EAD8D0 50%, #F5EDE8 100%);
-  border: 1px solid rgba(185, 128, 138, 0.55);
-  border-radius: 3px 3px 10px 10px;
-  box-shadow: 0 0 12px rgba(212, 130, 106, 0.3), 0 4px 16px rgba(185, 128, 138, 0.2);
-}
-
-[data-theme="light"] .lantern-chain {
-  width: 1px;
-  height: 28px;
-  background: linear-gradient(to bottom, rgba(185,128,138,0.5), rgba(107,66,57,0.3));
+  width: 26px;
+  height: 42px;
+  background: linear-gradient(180deg, #FBF6F3 0%, #EFE1DA 50%, #F5EAE4 100%);
+  border: 1.5px solid var(--rose);
+  border-radius: 6px 6px 14px 14px;
+  box-shadow: 0 0 16px rgba(185, 128, 138, 0.35), 0 4px 18px rgba(212, 130, 106, 0.25);
 }
 
 .lantern-flame {
@@ -753,8 +749,10 @@ body {
   fill: rgba(6, 30, 20, 0.6);
   stroke: var(--gold-primary);
   stroke-width: 2.2;
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
   animation: drawStroke 2.2s ease-out forwards;
 }
 
@@ -767,8 +765,10 @@ body {
   fill: none;
   stroke: var(--gold-light);
   stroke-width: 1;
-  stroke-dasharray: 550;
-  stroke-dashoffset: 550;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 660;
+  stroke-dashoffset: 660;
   animation: drawStroke 2s ease-out 0.4s forwards;
 }
 
@@ -1508,11 +1508,12 @@ body {
 }
 
 .crest-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold-muted);
-  margin-top: -6px;
+  margin-top: 0;
+  margin-bottom: 6px;
   font-weight: 600;
   transition: color var(--theme-trans);
 }
