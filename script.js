@@ -107,32 +107,52 @@ class GoldParticle {
 }
 
 class RosePetal {
-  constructor(width, height, index = 0, total = 6) {
+  constructor(width, height, index = 0, total = 18) {
     this.reset(width, height, true, (index / total) * height);
   }
 
   reset(width, height, init = false, customY = null) {
-    this.x = Math.random() * width;
-    this.y = init && customY !== null ? customY : -30;
-    this.width = Math.random() * 7 + 10;
-    this.height = Math.random() * 5 + 8;
-    const fallDurationSeconds = Math.random() * 6 + 14; 
-    this.speedY = (height / (fallDurationSeconds * 60)); 
-    this.speedX = Math.sin(Math.random() * Math.PI) * 0.35;
+    this.x = Math.random() * (width + 80) - 40;
+    this.y = init && customY !== null ? customY : -40;
+    // Three petal size tiers: small, medium, large
+    const tier = Math.random();
+    if (tier < 0.35) {
+      this.width = Math.random() * 4 + 7;   // small
+      this.height = Math.random() * 3 + 6;
+    } else if (tier < 0.72) {
+      this.width = Math.random() * 5 + 12;  // medium
+      this.height = Math.random() * 4 + 9;
+    } else {
+      this.width = Math.random() * 6 + 17;  // large
+      this.height = Math.random() * 5 + 13;
+    }
+    const fallDuration = Math.random() * 8 + 12;
+    this.speedY = height / (fallDuration * 60);
+    this.speedX = (Math.random() - 0.5) * 0.3;
     this.rotation = Math.random() * Math.PI * 2;
-    this.rotSpeed = (Math.random() - 0.5) * 0.02;
+    this.rotSpeed = (Math.random() - 0.5) * 0.018;
     this.swayAngle = Math.random() * Math.PI * 2;
-    this.swaySpeed = Math.random() * 0.02 + 0.015;
-    this.opacity = 0.48;
+    this.swaySpeed = Math.random() * 0.018 + 0.01;
+    this.swayAmp = Math.random() * 0.7 + 0.3;
+    // Varied opacity for depth — far petals dimmer
+    this.opacity = Math.random() * 0.28 + 0.22;
+    // Color variation: blush, rose, dusty mauve, warm white
+    const palette = [
+      [220, 160, 170],  // rose
+      [235, 185, 192],  // blush
+      [200, 140, 155],  // deep rose
+      [245, 210, 215],  // near-white blush
+      [180, 128, 138],  // dusty mauve
+    ];
+    this.color = palette[Math.floor(Math.random() * palette.length)];
   }
 
   update(width, height) {
     this.swayAngle += this.swaySpeed;
-    this.x += Math.sin(this.swayAngle) * 0.5 + this.speedX;
+    this.x += Math.sin(this.swayAngle) * this.swayAmp + this.speedX;
     this.y += this.speedY;
     this.rotation += this.rotSpeed;
-
-    if (this.y > height + 30 || this.x < -40 || this.x > width + 40) {
+    if (this.y > height + 50 || this.x < -60 || this.x > width + 60) {
       this.reset(width, height);
     }
   }
@@ -141,19 +161,30 @@ class RosePetal {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    ctx.beginPath();
 
+    const [r, g, b] = this.color;
+
+    // Petal body
+    ctx.beginPath();
     ctx.moveTo(0, -this.height / 2);
     ctx.quadraticCurveTo(this.width / 2, -this.height / 4, this.width / 3, this.height / 2);
-    ctx.quadraticCurveTo(0, this.height * 0.7, -this.width / 3, this.height / 2);
+    ctx.quadraticCurveTo(0, this.height * 0.72, -this.width / 3, this.height / 2);
     ctx.quadraticCurveTo(-this.width / 2, -this.height / 4, 0, -this.height / 2);
-
-    ctx.fillStyle = `rgba(185, 128, 138, ${this.opacity})`;
+    ctx.fillStyle = `rgba(${r},${g},${b},${this.opacity})`;
     ctx.fill();
 
+    // Inner shimmer vein
     ctx.beginPath();
-    ctx.ellipse(0, 0, this.width * 0.25, this.height * 0.35, 0, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(227, 190, 195, ${this.opacity * 0.6})`;
+    ctx.moveTo(0, -this.height * 0.38);
+    ctx.lineTo(0, this.height * 0.42);
+    ctx.strokeStyle = `rgba(255,240,245,${this.opacity * 0.55})`;
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+
+    // Highlight gloss
+    ctx.beginPath();
+    ctx.ellipse(-this.width * 0.12, -this.height * 0.1, this.width * 0.18, this.height * 0.22, -0.4, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,248,250,${this.opacity * 0.45})`;
     ctx.fill();
 
     ctx.restore();
@@ -211,8 +242,8 @@ function initApp() {
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
       if (isLight) {
-        // Maximum 6 slow falling rose petals
-        const petalCount = 6;
+        // 18 petals spread across full viewport height from the start
+        const petalCount = 18;
         for (let i = 0; i < petalCount; i++) {
           particles.push(new RosePetal(width, height, i, petalCount));
         }

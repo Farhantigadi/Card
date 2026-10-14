@@ -128,7 +128,7 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 8;
+  z-index: 30;
 }
 
 /* ==========================================================================
@@ -1225,41 +1225,36 @@ body {
   pointer-events: none;
 }
 
-/* Peony Top-Left Cluster overlapping arch edge */
+/* Peony Top-Left — on the arch curve */
 .peony-tl {
-  top: -22px;
-  left: 12px;
-  width: 150px;
-  height: 150px;
+  top: -30px;
+  left: 18%;
+  width: 155px;
+  height: 155px;
   object-fit: contain;
-  transform: rotate(-12deg);
-  animation: peonySwayTL 7s ease-in-out infinite alternate;
+  transform: rotate(-18deg);
+  transform-origin: bottom center;
+  animation: peonySwayTL 8s ease-in-out infinite alternate;
 }
 
-/* Peony Bottom-Right Cluster overlapping arch edge */
+/* Peony Bottom — static, slightly inside the card bottom-right */
 .peony-br {
-  bottom: 22px;
-  right: -5px;
-  width: 150px;
-  height: 150px;
+  bottom: -30px;
+  right: 16px;
+  width: 130px;
+  height: 130px;
   object-fit: contain;
-  transform: rotate(18deg);
-  animation: peonySwayBR 7s ease-in-out 0.8s infinite alternate;
+  transform: rotate(12deg);
+  animation: none;
 }
 
 @keyframes peonySwayTL {
-  0% { transform: rotate(-2deg); }
-  100% { transform: rotate(2deg); }
-}
-
-@keyframes peonySwayBR {
-  0% { transform: rotate(2deg); }
-  100% { transform: rotate(-2deg); }
+  0%   { transform: rotate(-20deg); }
+  100% { transform: rotate(-15deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .peony-tl,
-  .peony-br {
+  .peony-tl {
     animation: none !important;
   }
 }
@@ -2281,17 +2276,17 @@ body {
   }
 
   .peony-tl {
-    width: 110px;
-    height: 110px;
-    top: -14px;
-    left: 8px;
+    width: 115px;
+    height: 115px;
+    top: -22px;
+    left: 14%;
   }
 
   .peony-br {
-    width: 110px;
-    height: 110px;
-    bottom: 18px;
-    right: -4px;
+    width: 100px;
+    height: 100px;
+    bottom: -22px;
+    right: 12px;
   }
 }
 
@@ -2301,20 +2296,20 @@ body {
   }
 
   .toggle-theme-label {
-    display: none; /* Icon and track only on very narrow viewports */
+    display: none;
   }
 
   .peony-tl {
     width: 96px;
     height: 96px;
-    top: -12px;
-    left: 6px;
+    top: -18px;
+    left: 10%;
   }
 
   .peony-br {
-    width: 96px;
-    height: 96px;
-    bottom: 16px;
-    right: -4px;
+    width: 86px;
+    height: 86px;
+    bottom: -18px;
+    right: 10px;
   }
 }

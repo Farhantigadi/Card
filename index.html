@@ -26,15 +26,49 @@
         if (savedTheme === 'light' || savedTheme === 'dark') {
           document.documentElement.setAttribute('data-theme', savedTheme);
         } else {
-          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     })();
   </script>
 
   <link rel="stylesheet" href="style.css?v=2.3" />
+
+  <!-- DEV: Hot-reload CSS/JS on file change (no full page reload) -->
+  <script>
+    (function() {
+      const files = [
+        { type: 'css', href: 'style.css', el: null, etag: '' },
+        { type: 'js',  href: 'script.js', el: null, etag: '' }
+      ];
+      files[0].el = document.querySelector('link[href^="style.css"]');
+
+      async function checkFile(f) {
+        try {
+          const res = await fetch(f.href + '?_=' + Date.now(), { method: 'HEAD', cache: 'no-store' });
+          const tag = res.headers.get('last-modified') || res.headers.get('etag') || '';
+          if (tag && tag !== f.etag) {
+            if (f.etag !== '') {
+              if (f.type === 'css') {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = f.href + '?_=' + Date.now();
+                link.onload = () => { if (f.el && f.el.parentNode) f.el.parentNode.removeChild(f.el); f.el = link; };
+                document.head.appendChild(link);
+              } else {
+                location.reload();
+              }
+            }
+            f.etag = tag;
+          }
+        } catch(e) {}
+      }
+
+      setInterval(() => files.forEach(checkFile), 1000);
+    })();
+  </script>
 </head>
 <body>
 
@@ -234,10 +268,10 @@
         <div class="ornament-corner bottom-right"></div>
 
         <!-- Floral Peony Clusters for Rose Light Theme (Hidden in Dark Theme) -->
-        <div class="arch-floral-decor" aria-hidden="true">
+        <!-- <div class="arch-floral-decor" aria-hidden="true">
           <img src="assets/flowers/peony_cluster_tl.webp" alt="" class="arch-peony peony-tl" width="160" height="160" loading="eager" />
           <img src="assets/flowers/peony_cluster_br.webp" alt="" class="arch-peony peony-br" width="160" height="160" loading="lazy" />
-        </div>
+        </div> -->
 
         <div class="bismillah-block">
           <div class="bismillah-calligraphy-large" dir="rtl" lang="ar">
